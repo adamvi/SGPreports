@@ -3,7 +3,7 @@ Type: Package
 Title: Reports rendered in multiple formats using a single function and R Markdown file.
 Version: 1.0
 Date: 2015-4-7
-Authors@R: c(person(given=c("Adam", "R."), family="Van Iwaarden", email="avaniwaarden@gmail.com", role=c("aut", "cre"))
+Authors@R: c(person(given=c("Adam", "R."), family="Van Iwaarden", email="avaniwaarden@gmail.com", role=c("aut", "cre")),
 		person(given=c("Damian", "W."), family="Betebenner", email="dbetebenner@nciea.org", role="aut")) 
 Maintainer: Adam Van Iwaarden <avaniwaarden@gmail.com>
 Description: Provides Rmarkdown templates for the creation of reproducible reports in multiple formats, including technical reports for SGP analyses.
