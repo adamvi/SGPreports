@@ -1,0 +1,8 @@
+export(multi_document)
+export(renderMultiDocument)
+export(dualTable)
+importFrom(Grmd, docx_document)
+importFrom(latex, Hmisc)
+importFrom(htmlTable, htmlTable)
+importFrom(jpeg,readJPEG)
+importFrom(graphics, rasterImage)
