@@ -18,6 +18,7 @@ renderMultiDocument <- function (
   docx_css = "default",
   cover_img = NULL, 
   add_cover_title = FALSE,
+  bibliography = "default",
   csl = "default",
   pandoc_args = NULL,
   ...) {
@@ -93,6 +94,20 @@ renderMultiDocument <- function (
     } else pandoc_args <- c(pandoc_args, "--csl", system.file("rmarkdown", "templates", "multi_document", "resources", "apa.csl" , package = "SGPreports"))
   }
   
+  ### Bibliography
+  my.pandoc_citeproc <- rmarkdown:::find_program("pandoc-citeproc")
+  
+  if (!is.null(bibliography)) {
+    if (bibliography == "default") {
+      pandoc_args <-c(pandoc_args, "--filter", my.pandoc_citeproc, "--bibliography", 
+                      system.file("rmarkdown", "templates", "multi_document", "resources", "educ.bib" , package = "SGPreports"))
+    } else {
+      if(file.exists(bibliography)) {
+        pandoc_args <-c(pandoc_args, "--filter", my.pandoc_citeproc, "--bibliography", bibliography)
+      } else stop("'bibliography' file not found.")
+    }
+  }
+  
   ###  Check pandoc_args  
         # TBD
   
@@ -114,7 +129,7 @@ renderMultiDocument <- function (
   if ("HTML" %in% output_format) {
     message("\n\t Rendering HTML with call to render(... Grmd::docx_document):\n")
     
-    render(rmd_input, multi_document(..., envir=globalenv(),# passed args to rmarkdown::html_document
+    render(rmd_input, multi_document(..., # passed args to rmarkdown::html_document
       css=html_css, template=html_template, number_sections=number_sections, number_section_depth=number_section_depth,
       toc=toc, toc_depth=toc_depth, self_contained=self_contained, dev=dev, pandoc_args=pandoc_args), output_dir=file.path(".", "HTML"))
   
@@ -125,16 +140,16 @@ renderMultiDocument <- function (
   }
   
   if ("EPUB" %in% output_format) {
-    renderEPUB(rmd_input, cover_img=cover_img, add_cover_title=add_cover_title, number_sections=number_sections,
-               epub_template=epub_template, epub_css=epub_css, csl=csl, pandoc_args=pandoc_args)
+    renderEPUB(input=rmd_input, cover_img, add_cover_title, number_sections, convert_header_levels,
+               epub_template, epub_css, bibliography, csl, pandoc_args)
   }
     
   if ("PDF" %in% output_format) {
-    renderPDF(input=rmd_input, keep_tex=cleanup_aux_files, number_sections, pdf_template, csl, convert_header_levels, pandoc_args)
+    renderPDF(input=rmd_input, keep_tex=cleanup_aux_files, number_sections, pdf_template, bibliography, csl, convert_header_levels, pandoc_args)
   }
 
   if ("DOCX" %in% output_format) {
-    renderDOCX(input=rmd_input, self_contained=docx_self_contained, number_sections, number_section_depth, docx_css, csl, pandoc_args)
+    renderDOCX(input=rmd_input, self_contained=docx_self_contained, number_sections, number_section_depth, docx_css, bibliography, csl, pandoc_args)
     message("\n\n\tDOCX rendering is complete.  The output is the file \n\n\t", 
             file.path("DOCX", gsub(".Rmd", "-docx.html", rmd_input)), "\n\t
         In order to create a .docx file from it, you must serve the .html file

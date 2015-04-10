@@ -8,6 +8,7 @@ multi_document <- function (
   dev = "png",
   template = "default",
   css = "default",
+  bibliography = "default",
   csl = "default",
   pandoc_args = NULL) {
   
@@ -49,13 +50,27 @@ multi_document <- function (
     }
   } else template <- system.file("rmarkdown", "templates", "multi_document", "resources", "report.html" , package = "SGPreports")
   
+  ### Bibliography
+  my.pandoc_citeproc <- rmarkdown:::find_program("pandoc-citeproc")
+  
+  if (!is.null(bibliography)) {
+    if (bibliography == "default") {
+      pandoc_args <-c(pandoc_args, "--filter", my.pandoc_citeproc, "--bibliography", 
+                      system.file("rmarkdown", "templates", "multi_document", "resources", "educ.bib" , package = "SGPreports"))
+    } else {
+      if(file.exists(bibliography)) {
+        pandoc_args <-c(pandoc_args, "--filter", my.pandoc_citeproc, "--bibliography", bibliography)
+      } else stop("'bibliography' file not found.")
+    }
+  }
+  
   output_ret_val <- html_document(..., css=css, template=template, mathjax=NULL, theme=NULL, number_sections=number_sections,
                         toc=toc, toc_depth=toc_depth, self_contained=self_contained, dev=dev, keep_md=TRUE, pandoc_args=pandoc_args)
   output_ret_val$post_processor_old <- output_ret_val$post_processor
   output_ret_val$post_processor <- post_processor <- function(
       metadata, input_file, output_file, clean, verbose, old_post_processor = output_ret_val$post_processor_old) {
     output_file <- old_post_processor(metadata = metadata, input_file = input_file, 
-                      output_file = output_file, clean = clean, verbose = verbose)
+                    output_file = output_file, clean = clean, verbose = verbose)
     output_str <- readLines(output_file, warn = FALSE, encoding = "UTF-8")
     output_str <- scrubHeaders(output_str, header_levels=(which(1:6 > number_section_depth)))
     writeLines(output_str, output_file, useBytes = TRUE)

@@ -4,6 +4,7 @@ renderDOCX <- function(
   number_sections = TRUE,
   number_section_depth = 3,
   docx_css = "default",
+  bibliography = "default",
   csl = "default",
   pandoc_args = NULL) {
   
@@ -71,9 +72,9 @@ renderDOCX <- function(
   ###  Get YAML from .Rmd file
   file <- file(input) # input file
   rmd.text <- rmarkdown:::read_lines_utf8(file, getOption("encoding"))
+  close(file)
   # Valid YAML could end in "---" or "..."  - test for both.
   rmd.yaml <- rmd.text[grep("---", rmd.text)[1]:ifelse(length(grep("---", rmd.text))>=2, grep("---", rmd.text)[2], grep("[.][.][.]", rmd.text)[1])]
-  close(file)
   
   if (any(grepl("output:", rmd.yaml))) docx.rmd.yaml <- c(rmd.yaml[1:(grep("output:", rmd.yaml)-1)], "---") else docx.rmd.yaml <- rmd.yaml
 
@@ -107,6 +108,20 @@ renderDOCX <- function(
   
   writeLines(md.text, file.path("DOCX", "markdown", gsub(".md", "-docx.md", input.md)))
 
+  ### Bibliography
+  my.pandoc_citeproc <- rmarkdown:::find_program("pandoc-citeproc")
+
+  if (!is.null(bibliography)) {
+    if (bibliography == "default") {
+      pandoc_args <-c(pandoc_args, "--filter", my.pandoc_citeproc, "--bibliography", 
+                      system.file("rmarkdown", "templates", "multi_document", "resources", "educ.bib" , package = "SGPreports"))
+    } else {
+      if(file.exists(bibliography)) {
+        pandoc_args <-c(pandoc_args, "--filter", my.pandoc_citeproc, "--bibliography", bibliography)
+      } else stop("'bibliography' file not found.")
+    }
+  }
+  
   message("\n\t Rendering DOCX with call to render(... Grmd::docx_document):\n")
   
   render(file.path("DOCX", "markdown", gsub(".md", "-docx.md", input.md)),

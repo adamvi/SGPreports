@@ -3,6 +3,7 @@ renderPDF <- function (
   keep_tex = FALSE, # passed from 'cleanup_aux_files'
   number_sections=TRUE,
   pdf_template = "default",
+  bibliography = "default",
   csl = "default",
   convert_header_levels = c(5,6),
   pandoc_args = NULL) {
@@ -55,7 +56,6 @@ renderPDF <- function (
   rmd.text <- rmarkdown:::read_lines_utf8(file, getOption("encoding"))
   # Valid YAML could end in "---" or "..."  - test for both.
   rmd.yaml <- rmd.text[grep("---", rmd.text)[1]:ifelse(length(grep("---", rmd.text))>=2, grep("---", rmd.text)[2], grep("[.][.][.]", rmd.text)[1])]
-  rmd.yaml2 <- rmarkdown:::parse_yaml_front_matter(rmd.text)
   close(file)
   
   ##
@@ -148,14 +148,14 @@ renderPDF <- function (
       please install pandoc directly or a version of Rstudio (>=v0.98.932) that also contains it.")
   
   ### Bibliography
-  if(!is.null(biblio <- rmd.yaml2$bibliography)) {
-    if (biblio == "default") {
+  if(!is.null(bibliography)) {
+    if (bibliography == "default") {
       biblio<-paste("--filter", my.pandoc_citeproc, "--bibliography", 
                     system.file("rmarkdown", "templates", "multi_document", "resources", "educ.bib" , package = "SGPreports"))
     } else {
-      if(file.exists(biblio)) {
-        biblio <- paste("--filter", my.pandoc_citeproc, "--bibliography", biblio)
-      } else stop("YAML 'bibliography:' file not found.")
+      if(file.exists(bibliography)) {
+        biblio <- paste("--filter", my.pandoc_citeproc, "--bibliography", bibliography)
+      } else stop("'bibliography:' file not found.")
     }
   }
                 

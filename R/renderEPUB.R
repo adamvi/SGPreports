@@ -6,6 +6,7 @@ renderEPUB <- function(
   convert_header_levels = c(5,6),
   epub_template = NULL,
   epub_css = "default",
+  bibliography = "default",
   csl = "default",
   pandoc_args = NULL) {
   
@@ -191,13 +192,13 @@ renderEPUB <- function(
       please install pandoc directly or a version of Rstudio (>=v0.98.932) that also contains it.")
   
   ### Bibliography
-  if(!is.null(biblio <- rmd.yaml$bibliography)) {
-    if (biblio == "default") {
+  if(!is.null(bibliography)) {
+    if (bibliography == "default") {
       biblio<-paste("--filter", my.pandoc_citeproc, "--bibliography", 
                     system.file("rmarkdown", "templates", "multi_document", "resources", "educ.bib" , package = "SGPreports"))
     } else {
-      if(file.exists(biblio)) {
-        biblio <- paste("--filter", my.pandoc_citeproc, "--bibliography", biblio)
+      if(file.exists(bibliography)) {
+        biblio <- paste("--filter", my.pandoc_citeproc, "--bibliography", bibliography)
       } else stop("YAML 'bibliography:' file not found.")
     }
   }
