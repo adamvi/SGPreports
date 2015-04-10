@@ -114,7 +114,7 @@ renderMultiDocument <- function (
   if ("HTML" %in% output_format) {
     message("\n\t Rendering HTML with call to render(... Grmd::docx_document):\n")
     
-    render(rmd_input, multi_document(..., # passed args to rmarkdown::html_document
+    render(rmd_input, multi_document(..., envir=globalenv(),# passed args to rmarkdown::html_document
       css=html_css, template=html_template, number_sections=number_sections, number_section_depth=number_section_depth,
       toc=toc, toc_depth=toc_depth, self_contained=self_contained, dev=dev, pandoc_args=pandoc_args), output_dir=file.path(".", "HTML"))
   
