@@ -70,8 +70,8 @@ render(rmd_input,
   dimensions roughly 2100 x 2800.}
   \item{csl}{The CSL (citation style language) to use to format bibliography 
   (if included).  Defaults to APA 5th edition.  See 
-  \href{https://github.com/citation-style-language/styles} for alternatives.
-  If NULL pandoc's defaults will be used.}
+  \href{https://github.com/citation-style-language/styles}{this Github repository} 
+  for alternatives.  If NULL pandoc's defaults will be used.}
   \item{pandoc_args}{Additional command line options to pass to pandoc}
   \item{...}{Passed onto\code{\link{multi_document}} and/or 
   \code{\link[rmarkdown]{html_document}}.}

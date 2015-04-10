@@ -26,7 +26,7 @@ multi_document(..., self_contained = FALSE, mathjax = NULL, theme = NULL,
   \item{css}{The CSS if other that the default within the package.}
   \item{csl}{The CSL (citation style language) to use to format bibliography 
   (if included).  Defaults to APA 5th edition.  See 
-  \href{https://github.com/citation-style-language/styles} {this Github repository}
+  \href{https://github.com/citation-style-language/styles}{this Github repository}
   for alternatives.  If NULL pandoc's defaults will be used.}
   \item{pandoc_args}{Additional command line options to pass to pandoc}
 }
