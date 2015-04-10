@@ -86,7 +86,6 @@ pandoc. If the input requires knitting then
 \code{\link[knitr:knit]{knit}} is called prior to pandoc.
 }
 \details{
-
 This function is a wrapper function that combines calls to \code{\link[rmarkdown]{render}}
 and direct \code{system} calls to Pandoc.  The function begins with a rendering of the 
 HTML version of the document and saves the markdown file from this rendering and 
@@ -100,7 +99,6 @@ specific post-processing, which is also accomplished in the function.
 }
 \examples{
 \dontrun{
-
 library(SGPreports)
 
 # Render all four formats.
@@ -116,4 +114,3 @@ renderMultiDocument("My_Report.Rmd",
 \author{
 Adam Van Iwaarden
 }
-

@@ -39,7 +39,7 @@ stylized, standalone HTML document tailored for academic and technical
 reports, as well as  alternative output formats.  Available formats
 include PDF, EPUB and DOCX.
 
-The DOCX format is an adaptation of the  \code{\link[Grmd]{docx_document} 
+The DOCX format is an adaptation of the  \code{\link[Grmd]{docx_document}}
 processor which allows for seamless integration for importing
 html-documents in the MS Word .docx-format. The advantage of html
 documents is the ability to create advanced formatting
@@ -60,7 +60,3 @@ fast-track-publishing (ftp) together with knitr.
 
 }
 }
-\author{
-Adam Van Iwaarden
-}
-
