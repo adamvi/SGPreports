@@ -8,6 +8,7 @@ dualTable(
     caption, 
     css.class = "gmisc_table breakboth", 
     ...)
+}
 
 \arguments{
   \item{my_tbl}{The matrix/data.frame with the data.}
@@ -17,7 +18,7 @@ dualTable(
   passed on to the \code{\link[base]{cat}} functions
   arguments.}
 
-  \item{where}{Passed to \code{\link[Hmisc]{latex}}.  Specifies placement of floats if a table environment is used. Default is  \code{"H"}, which places the table in the exact location it appears in the document. To allow tables to appear in the middle of a page of text you might specify  \code{where="!htbp"} to  \code{latex.default}.
+  \item{where}{Passed to \code{\link[Hmisc]{latex}}.  Specifies placement of floats if a table environment is used. Default is  \code{"H"}, which places the table in the exact location it appears in the document. To allow tables to appear in the middle of a page of text you might specify  \code{where="!htbp"} to  \code{latex.default}.}
 
   \item{caption}{Adds a table caption.}
 
@@ -28,7 +29,7 @@ dualTable(
   \code{breakboth} class.  This inserts a page break before
   and after the table, which prevents tables from being broken
   up between pages when printed from HTML or rendered as
-  an EPUB document.
+  an EPUB document.}
 
   \item{...}{Passed onto \code{\link[Grmd]{htmlTable}} and/or
   \code{\link[Hmisc]{latex}}.}
@@ -46,7 +47,7 @@ than what \pkg{xtable}, \pkg{ztable}, or \pkg{knitr}'s
 \code{\link[knitr]{kable}()} allows. It's aim is to provide the
 combined functionality of the the \pkg{Hmisc} \code{\link[Hmisc]{latex}()} 
 and  \pkg{htmlTable} \code{\link[Grmd]{htmlTable}} . See those
-functions' documentation for more details.
+function's documentation for more details.
 }
 
 \examples{
@@ -92,5 +93,5 @@ dualTable(output, align="r",
           css.cell = "padding-left: .5em; padding-right: .2em;")
 
 }
-}
+
 
