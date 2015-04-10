@@ -2,11 +2,19 @@
 \alias{multi_document}
 \title{Formatter wrapper for \code{\link[rmarkdown]{html_document}} to facilitate multiple output format porting.}
 \usage{
-multi_document(..., self_contained = FALSE, mathjax = NULL, theme = NULL,
-  highlight = NULL, css = "rmarkdown/docx.css",
-  h1_style = "margin: 24pt 0pt 0pt 0pt;",
-  other_h_style = "margin: 10pt 0pt 0pt 0pt;", remove_scripts = TRUE,
-  force_captions = FALSE, css_max_width)
+multi_document(
+  ...,
+  number_sections = TRUE,
+  number_section_depth=3,
+  toc = TRUE,
+  toc_depth = 2,
+  self_contained = TRUE,
+  dev = "png",
+  template = "default",
+  css = "default",
+  bibliography = "default",
+  csl = "default",
+  pandoc_args = NULL)
 }
 \arguments{
   \item{...}{Passed onto \code{\link[rmarkdown]{html_document}}.}
@@ -24,6 +32,9 @@ multi_document(..., self_contained = FALSE, mathjax = NULL, theme = NULL,
   use the "default" template then the features of \code{multi_document} 
   won't be available.}
   \item{css}{The CSS if other that the default within the package.}
+  \item{bibliography}{The LaTeX style bibliography file (.bib, .bibtex, etc.) to include.
+  The default file included in the package includes references often used by the author
+  and will likely be insufficient for most users.}
   \item{csl}{The CSL (citation style language) to use to format bibliography 
   (if included).  Defaults to APA 5th edition.  See 
   \href{https://github.com/citation-style-language/styles}{this Github repository}

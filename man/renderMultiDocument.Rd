@@ -21,6 +21,7 @@ render(rmd_input,
   docx_css = "default",
   cover_img = NULL, 
   add_cover_title = FALSE,
+  bibliography = "default",
   csl = "default",
   pandoc_args = NULL,
   ...)
@@ -68,6 +69,9 @@ render(rmd_input,
   \item{add_cover_title}{EXPERIMENTAL.  Add the document title and subtitle to the
   EPUB cover image.  Currently set up for only .jpg files and tailored to an image with
   dimensions roughly 2100 x 2800.}
+  \item{bibliography}{The LaTeX style bibliography file (.bib, .bibtex, etc.) to include.
+  The default file included in the package includes references often used by the author
+  and will likely be insufficient for most users.}
   \item{csl}{The CSL (citation style language) to use to format bibliography 
   (if included).  Defaults to APA 5th edition.  See 
   \href{https://github.com/citation-style-language/styles}{this Github repository} 
