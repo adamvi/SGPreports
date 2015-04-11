@@ -35,10 +35,11 @@ renderEPUB <- function(
     if (epub_template == "default") {
       epub_template <- NULL 
     } else {
-    if (!file.exists(epub_template)) {
-      stop("The epub_template file that you've specified can't be found in the file path provided.")
-    }}
-  }# EPUB default is pandoc template for now otherwise :: else epub_template <- system.file("rmarkdown", "templates", "multi_document", "resources", "epub.html" , package = "SGPreports")
+      if (!file.exists(epub_template)) {
+        stop("The epub_template file that you've specified can't be found in the file path provided.")
+      } else epub_template <- paste("--template ", epub_template)
+    }
+  } # EPUB default is pandoc template for now otherwise :: else epub_template <- system.file("rmarkdown", "templates", "multi_document", "resources", "epub.html" , package = "SGPreports")
   
   ##  Check csl file  
   if (!is.null(csl)) {
@@ -57,16 +58,8 @@ renderEPUB <- function(
 
   ### Check defaults
   epub_number_sections <- ifelse(number_sections, "--number-sections", NULL)
-
-  ### Check CSS and pandoc templates
-  
-  if(!is.null(epub_template)) {
-    if(!file.exists(epub_template)) stop("\n You do have alternative EPUB template in file path give.  Please check path and try again.")
-    epub_template <- paste("--template ", epub_template)
-  }
   
   ###  pandoc args
-  
   if(!is.null(pandoc_args)){
     if(any(grepl("--highlight-style", pandoc_args))) {
       highlight <- pandoc_args[grepl("--highlight-style", pandoc_args)]
@@ -77,8 +70,7 @@ renderEPUB <- function(
   } else {
     highlight <- "--highlight-style pygments"
   }
-  
-  
+
   ###  Get YAML from .Rmd file
   file <- file(file.path("..", input)) # input file
   rmd.text <- rmarkdown:::read_lines_utf8(file, getOption("encoding"))
@@ -183,9 +175,8 @@ renderEPUB <- function(
   ###
   
   ### Find pandoc - preference goes to Rstudio version (for now)
-#   my.pandoc <- ifelse(grepl("PANDOC", toupper(Sys.getenv("RSTUDIO_PANDOC"))), Sys.getenv("RSTUDIO_PANDOC"), rmarkdown:::find_program("pandoc"))
-  my.pandoc <- rmarkdown:::find_program("pandoc")
-  my.pandoc_citeproc <- rmarkdown:::find_program("pandoc-citeproc")
+  my.pandoc <- rmarkdown:::pandoc()
+  my.pandoc_citeproc <- rmarkdown:::pandoc-citeproc()
 
   if(nchar(my.pandoc)==0) stop(
       "The program 'pandoc' was not found. Check 'Sys.getenv(\"RSTUDIO_PANDOC\")'.  If necessary,

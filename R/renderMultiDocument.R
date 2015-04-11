@@ -23,100 +23,16 @@ renderMultiDocument <- function (
   pandoc_args = NULL,
   ...) {
 
-  ### Initial checks of alternative css and/or pandoc template
+  ###  Checks of alternative css and/or pandoc template done in externalized functions
   
-  ##  CSS check from Grmd::docx_document - credit to Max Gordon/Gforge https://github.com/gforge
-  if (html_css != "default") {
-    if (!all(sapply(html_css, file.exists))) {
-      alt_html_css <- list.files(pattern = ".css$")
-      if (length(alt_html_css) > 0) {
-        alt_html_css <- paste0("\n You do have alternative file name(s) in current directory that you may intend to use.", 
-                          " You may want to have a YAML section that looks something like:", 
-                          "\n---", "\noutput:", "\n  SGPreports::multi_document:", 
-                          "\n    html_css: \"", paste(alt_html_css, collapse = "\", \""), 
-                          "\"", "\n---")
-      } else {
-        alt_html_css <- ""
-      }
-      stop("One or more of the css-file(s) that you've specified can't be identified.", 
-           "The file(s) '", paste(html_css[!sapply(html_css, file.exists)], 
-                                  collapse = "', '"), "'", " can't be found in the file path provided.")
-    }
-  } else html_css <- system.file("rmarkdown", "templates", "multi_document", "resources", "report.css" , package = "SGPreports")
-  
-  if (epub_css != "default") {
-    if (!all(sapply(epub_css, file.exists))) {
-      alt_epub_css <- list.files(pattern = ".css$")
-      if (length(alt_epub_css) > 0) {
-        alt_epub_css <- paste0("\n You do have alternative file name(s) in current directory that you may intend to use.", 
-                               " You may want to have a YAML section that looks something like:", 
-                               "\n---", "\noutput:", "\n  SGPreports::multi_document:", 
-                               "\n    epub_css: \"", paste(alt_epub_css, collapse = "\", \""), 
-                               "\"", "\n---")
-      } else {
-        alt_epub_css <- ""
-      }
-      stop("One or more of the css-file(s) that you've specified can't be identified.", 
-           "The file(s) '", paste(epub_css[!sapply(epub_css, file.exists)], 
-                                  collapse = "', '"), "'", " can't be found in the file path provided.")
-    }
-  } else epub_css <- system.file("rmarkdown", "templates", "multi_document", "resources", "epub.css" , package = "SGPreports")
-  
-  ### Check pandoc templates
-  
-  if (html_template != "default") {
-    if (!file.exists(html_template)) {
-      stop("The html_template file that you've specified can't be found in the file path provided.")
-    }
-  } else html_template <- system.file("rmarkdown", "templates", "multi_document", "resources", "report.html" , package = "SGPreports")
-  
-  if (!is.null(epub_template)) {
-    if (epub_template == "default") {
-      epub_template <- NULL 
-    } else {
-      if (!file.exists(epub_template)) {
-        stop("The epub_template file that you've specified can't be found in the file path provided.")
-      }}
-  }# EPUB default is pandoc template for now otherwise :: else epub_template <- system.file("rmarkdown", "templates", "multi_document", "resources", "epub.html" , package = "SGPreports")
-  
-  if (pdf_template != "default") {
-    if (!file.exists(pdf_template)) {
-      stop("The pdf_template file that you've specified can't be found in the file path provided.")
-    }
-  } else pdf_template <- system.file("rmarkdown", "templates", "multi_document", "resources", "damian.tex" , package = "SGPreports")
-
-  ##  Check csl file  
-  if (!is.null(csl)) {
-    if (csl != "default") {
-      if (!file.exists(csl)) {
-        stop("The csl file that you've specified can't be found in the file path provided.")
-      } else pandoc_args <- c(pandoc_args, "--csl", csl) # Use pandoc_args here since docx_document passes that to html_document
-    } else pandoc_args <- c(pandoc_args, "--csl", system.file("rmarkdown", "templates", "multi_document", "resources", "apa.csl" , package = "SGPreports"))
-  }
-  
-  ### Bibliography
-  my.pandoc_citeproc <- rmarkdown:::find_program("pandoc-citeproc")
-  
-  if (!is.null(bibliography)) {
-    if (bibliography == "default") {
-      pandoc_args <-c(pandoc_args, "--filter", my.pandoc_citeproc, "--bibliography", 
-                      system.file("rmarkdown", "templates", "multi_document", "resources", "educ.bib" , package = "SGPreports"))
-    } else {
-      if(file.exists(bibliography)) {
-        pandoc_args <-c(pandoc_args, "--filter", my.pandoc_citeproc, "--bibliography", bibliography)
-      } else stop("'bibliography' file not found.")
-    }
-  }
-  
-  ###  Check pandoc_args  
-        # TBD
+  ###  Check for HTML routine request, or at least required master .md output 
   
   if (!"HTML" %in% output_format & !file.exists(file.path("HTML", "markdown", gsub(".Rmd", ".md", rmd_input)))) {
     if (!file.exists(file.path("HTML", gsub(".Rmd", ".html", rmd_input)))) {
-      message("\n\tThe file ", file.path("HTML", "markdown", gsub(".Rmd", ".md", rmd_input)), " was not found, but is required for 
-        output_format ", paste(output_format, collapse=", "), ". The 'HTML' step will be added to 'output_format' and run.
-        NOTE: Document ", file.path("HTML", gsub(".Rmd", ".html", rmd_input)), " will be also created.\n")
-      output_format <- c("HTML", output_format)
+        message("\n\tThe file ", file.path("HTML", "markdown", gsub(".Rmd", ".md", rmd_input)), " was not found, but is required for 
+          output_format ", paste(output_format, collapse=", "), ". The 'HTML' step will be added to 'output_format' and run.
+          NOTE: Document ", file.path("HTML", gsub(".Rmd", ".html", rmd_input)), " will be also created.\n")
+        output_format <- c("HTML", output_format)
     } else stop("\n\tThe file ", file.path("HTML", "markdown", gsub(".Rmd", ".md", rmd_input)), " was not found, but is required for 
         output_format ", paste(output_format, collapse=", "), ". Add 'HTML' the 'output_format' argument and re-run.
         NOTE: Document ", file.path("HTML", gsub(".Rmd", ".html", rmd_input)), " will be overwritten when re-run.\n")
@@ -130,8 +46,9 @@ renderMultiDocument <- function (
     message("\n\t Rendering HTML with call to render(... Grmd::docx_document):\n")
     
     render(rmd_input, multi_document(..., # passed args to rmarkdown::html_document
-      css=html_css, template=html_template, number_sections=number_sections, number_section_depth=number_section_depth,
-      toc=toc, toc_depth=toc_depth, self_contained=self_contained, dev=dev, pandoc_args=pandoc_args), output_dir=file.path(".", "HTML"))
+              number_sections, number_section_depth, toc, toc_depth, self_contained, dev, 
+              template=html_template, css=html_css, bibliography, csl, pandoc_args),
+          output_dir=file.path(".", "HTML"))
   
     ### Move "master" .md file to HTML/markdown directory
     dir.create(file.path("HTML", "markdown"), showWarnings=FALSE)

@@ -109,10 +109,10 @@ renderDOCX <- function(
   writeLines(md.text, file.path("DOCX", "markdown", gsub(".md", "-docx.md", input.md)))
 
   ### Bibliography
-  my.pandoc_citeproc <- rmarkdown:::find_program("pandoc-citeproc")
 
   if (!is.null(bibliography)) {
-    if (bibliography == "default") {
+  	my.pandoc_citeproc <- rmarkdown:::pandoc_citeproc()
+  	if (bibliography == "default") {
       pandoc_args <-c(pandoc_args, "--filter", my.pandoc_citeproc, "--bibliography", 
                       system.file("rmarkdown", "templates", "multi_document", "resources", "educ.bib" , package = "SGPreports"))
     } else {

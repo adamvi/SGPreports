@@ -51,9 +51,9 @@ multi_document <- function (
   } else template <- system.file("rmarkdown", "templates", "multi_document", "resources", "report.html" , package = "SGPreports")
   
   ### Bibliography
-  my.pandoc_citeproc <- rmarkdown:::find_program("pandoc-citeproc")
   
   if (!is.null(bibliography)) {
+  	my.pandoc_citeproc <- rmarkdown:::pandoc_citeproc()
     if (bibliography == "default") {
       pandoc_args <-c(pandoc_args, "--filter", my.pandoc_citeproc, "--bibliography", 
                       system.file("rmarkdown", "templates", "multi_document", "resources", "educ.bib" , package = "SGPreports"))
