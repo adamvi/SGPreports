@@ -1,9 +1,6 @@
-use.data.table <- function() {
 	environment(renderMultiDocument) <- environment()
 	environment(multi_document) <- environment()
 	environment(renderHTML) <- environment()
 	environment(renderEPUB) <- environment()
 	environment(renderPDF) <- environment()
 	environment(renderDOCX) <- environment()
-}
-	
