@@ -12,7 +12,15 @@ multi_document <- function (
   csl = "default",
   pandoc_args = NULL) {
   
-  ### Initial checks of alternative css and/or pandoc template
+	scrubHeaders <- function(output_str, header_levels=header_levels) {
+		for (header.level in header_levels) {
+			index <- grep(paste("<h", header.level, ">", sep=""), output_str)
+			for (i in index) output_str[i] <- paste("<h", header.level, ">",gsub("<span.*|.*span>", "", output_str[i]), sep="")
+		}
+		return(output_str)
+	}
+	
+	### Initial checks of alternative css and/or pandoc template
   
   ##  CSS check from Grmd::docx_document - credit to Max Gordon/Gforge https://github.com/gforge
   if (css != "default") {
@@ -64,8 +72,9 @@ multi_document <- function (
     }
   }
   
-  output_ret_val <- html_document(..., css=css, template=template, mathjax=NULL, theme=NULL, number_sections=number_sections,
-                        toc=toc, toc_depth=toc_depth, self_contained=self_contained, dev=dev, keep_md=TRUE, pandoc_args=pandoc_args)
+  output_ret_val <- html_document(toc=toc, toc_depth=toc_depth, number_sections=number_sections, 
+  											dev=dev, self_contained=self_contained, theme=NULL, mathjax=NULL, 
+  											template=template, css=css, keep_md=TRUE, pandoc_args=pandoc_args, ...)
   output_ret_val$post_processor_old <- output_ret_val$post_processor
   output_ret_val$post_processor <- post_processor <- function(
       metadata, input_file, output_file, clean, verbose, old_post_processor = output_ret_val$post_processor_old) {
@@ -79,13 +88,5 @@ multi_document <- function (
   return(output_ret_val)
 }### End multi_document
 
-
-scrubHeaders <- function(output_str, header_levels=header_levels) {
-  for (header.level in header_levels) {
-    index <- grep(paste("<h", header.level, ">", sep=""), output_str)
-    for (i in index) output_str[i] <- paste("<h", header.level, ">",gsub("<span.*|.*span>", "", output_str[i]), sep="")
-  }
-  return(output_str)
-}
 
   

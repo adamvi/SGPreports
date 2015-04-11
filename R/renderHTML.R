@@ -5,11 +5,12 @@ renderHTML <- function (
   toc = TRUE,
   toc_depth = 2,
   self_contained = TRUE,
+  dev="png",
   html_template = "default",
   html_css = "default",
   bibliography = "default",
   csl = "default",
-  pandoc_args = NULL) {
+  pandoc_args = NULL, ...) {
   
   ### Initial checks of alternative css and/or pandoc template
   
@@ -40,22 +41,46 @@ renderHTML <- function (
 		}
 	} else html_template <- system.file("rmarkdown", "templates", "multi_document", "resources", "report.html" , package = "SGPreports")
 
-  ###
+	### Bibliography
+	
+	if (!is.null(bibliography)) {
+		my.pandoc_citeproc <- rmarkdown:::pandoc_citeproc()
+		if (bibliography == "default") {
+			pandoc_args <-c(pandoc_args, "--filter", my.pandoc_citeproc, "--bibliography", 
+											system.file("rmarkdown", "templates", "multi_document", "resources", "educ.bib" , package = "SGPreports"))
+		} else {
+			if(file.exists(bibliography)) {
+				pandoc_args <-c(pandoc_args, "--filter", my.pandoc_citeproc, "--bibliography", bibliography)
+			} else stop("'bibliography' file not found.")
+		}
+	}
+	
+	##  Check csl file  
+	if (!is.null(csl)) {
+		if (csl != "default") {
+			if (!file.exists(csl)) {
+				stop("The csl file that you've specified can't be found in the file path provided.")
+			} else pandoc_args <- c(pandoc_args, "--csl", csl) # Use pandoc_args here since docx_document passes that to html_document
+		} else pandoc_args <- c(pandoc_args, "--csl", system.file("rmarkdown", "templates", "multi_document", "resources", "apa.csl" , package = "SGPreports"))
+	}
+
+	###
   ###  Render HTML (and master .md file)
   ###
   
 	message("\n\t Rendering HTML with call to render(... multi_document):\n")
 	
-	render(rmd_input, 
+	render(input, 
   			 multi_document(..., # passed args to rmarkdown::html_document
-  			 							 number_sections, number_section_depth, toc, toc_depth, self_contained, dev,
-  			 							 template=html_template, css=html_css, bibliography, csl, pandoc_args),
+  			 							 number_sections=number_sections, number_section_depth=number_section_depth, toc=toc, toc_depth=toc_depth,
+  			 							 self_contained=self_contained, dev=dev, template=html_template, css=html_css,
+  			 							 bibliography=NULL, csl=NULL, pandoc_args=pandoc_args), # bibliography & csl processed through pandoc args already, dependency_resolver=rmarkdown:::html_dependency_resolver
   			     output_dir=file.path(".", "HTML"))
 	
 	### Move "master" .md file to HTML/markdown directory
 	dir.create(file.path("HTML", "markdown"), showWarnings=FALSE)
-	file.copy(file.path("HTML", gsub(".Rmd", ".md", rmd_input, ignore.case=TRUE)), file.path("HTML", "markdown"), overwrite=TRUE)
-	file.remove(file.path("HTML", gsub(".Rmd", ".md", rmd_input, ignore.case=TRUE)))
+	file.copy(file.path("HTML", gsub(".Rmd", ".md", input, ignore.case=TRUE)), file.path("HTML", "markdown"), overwrite=TRUE)
+	file.remove(file.path("HTML", gsub(".Rmd", ".md", input, ignore.case=TRUE)))
 	
   return(NULL)
 }### End renderMultiDocument

@@ -44,7 +44,7 @@ renderMultiDocument <- function (
 
   if ("HTML" %in% output_format) {
   	renderHTML(input=rmd_input, number_sections, number_section_depth, toc, toc_depth,
-  						 self_contained, html_template, html_css, bibliography, csl, pandoc_args)
+  						 self_contained, dev, html_template, html_css, bibliography, csl, pandoc_args)
   }
   
   if ("EPUB" %in% output_format) {
