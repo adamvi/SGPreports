@@ -1,6 +1,7 @@
 export(multi_document)
 export(renderMultiDocument)
 export(dualTable)
+export(use.data.table)
 export(tblNum)
 export(tblNumNext)
 export(tblNumIncrement)
