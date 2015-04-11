@@ -63,9 +63,7 @@ renderPDF <- function (
   ##
   trimWhiteSpace <- function(line) gsub("(^ +)|( +$)", "", line)
   
-  if(grepl(".Rmd", input)) input.md <- gsub(".Rmd", ".md", input)
-  if(grepl(".rmd", input)) input.md <- gsub(".rmd", ".md", input)
-  if(grepl(".RMD", input)) input.md <- gsub(".RMD", ".md", input)
+  input.md <- gsub(".Rmd", ".md", input, ignore.case=TRUE)
   
   dir.create(file.path("PDF", "markdown"), recursive=TRUE, showWarnings=FALSE)
   
@@ -160,10 +158,10 @@ renderPDF <- function (
   }
                 
   message("\n\t Rendering PDF with system call to pandoc:\n\n", 
-          my.pandoc,pdf_md_path, "--to latex --from markdown+autolink_bare_uris+ascii_identifiers --output ", file.path("PDF", gsub(".md", ".pdf", input.md)), biblio, " ", csl, "--template ", pdf_template,  pdf_number_sections, highlight, latex_engine, pandoc_args, "\n")
+          my.pandoc,pdf_md_path, "--to latex --from markdown+autolink_bare_uris+ascii_identifiers --output ", file.path("PDF", gsub(".md", ".pdf", input.md, ignore.case=TRUE)), biblio, " ", csl, "--template ", pdf_template,  pdf_number_sections, highlight, latex_engine, pandoc_args, "\n")
   if(keep_tex) {
-  system(paste(my.pandoc, pdf_md_path, "--to latex --from markdown+autolink_bare_uris+ascii_identifiers --output ", file.path("PDF", gsub(".md", ".tex", input.md)), biblio, " ", csl, "--template ", pdf_template,  pdf_number_sections, highlight, latex_engine, pandoc_args))
+  system(paste(my.pandoc, pdf_md_path, "--to latex --from markdown+autolink_bare_uris+ascii_identifiers --output ", file.path("PDF", gsub(".md", ".tex", input.md, ignore.case=TRUE)), biblio, " ", csl, "--template ", pdf_template,  pdf_number_sections, highlight, latex_engine, pandoc_args))
   }
-  system(paste(my.pandoc, pdf_md_path, "--to latex --from markdown+autolink_bare_uris+ascii_identifiers --output ", file.path("PDF", gsub(".md", ".pdf", input.md)), biblio, " ", csl, "--template ", pdf_template,  pdf_number_sections, highlight, latex_engine, pandoc_args))
+  system(paste(my.pandoc, pdf_md_path, "--to latex --from markdown+autolink_bare_uris+ascii_identifiers --output ", file.path("PDF", gsub(".md", ".pdf", input.md, ignore.case=TRUE)), biblio, " ", csl, "--template ", pdf_template,  pdf_number_sections, highlight, latex_engine, pandoc_args))
 }### End renderPDF
 

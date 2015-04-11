@@ -54,8 +54,8 @@ renderHTML <- function (
 	
 	### Move "master" .md file to HTML/markdown directory
 	dir.create(file.path("HTML", "markdown"), showWarnings=FALSE)
-	file.copy(file.path("HTML", gsub(".Rmd", ".md", rmd_input)), file.path("HTML", "markdown"), overwrite=TRUE)
-	file.remove(file.path("HTML", gsub(".Rmd", ".md", rmd_input)))
+	file.copy(file.path("HTML", gsub(".Rmd", ".md", rmd_input, ignore.case=TRUE)), file.path("HTML", "markdown"), overwrite=TRUE)
+	file.remove(file.path("HTML", gsub(".Rmd", ".md", rmd_input, ignore.case=TRUE)))
 	
   return(NULL)
 }### End renderMultiDocument

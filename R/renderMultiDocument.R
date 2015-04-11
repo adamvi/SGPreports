@@ -23,19 +23,19 @@ renderMultiDocument <- function (
   pandoc_args = NULL,
   ...) {
 
-  ###  Checks of alternative css and/or pandoc template done in externalized functions
+	###  Checks of alternative css and/or pandoc template done in externalized functions
   
   ###  Check for HTML routine request, or at least required master .md output 
   
-  if (!"HTML" %in% output_format & !file.exists(file.path("HTML", "markdown", gsub(".Rmd", ".md", rmd_input)))) {
-    if (!file.exists(file.path("HTML", gsub(".Rmd", ".html", rmd_input)))) {
-        message("\n\tThe file ", file.path("HTML", "markdown", gsub(".Rmd", ".md", rmd_input)), " was not found, but is required for 
+  if (!"HTML" %in% output_format & !file.exists(file.path("HTML", "markdown", gsub(".Rmd", ".md", rmd_input, ignore.case=TRUE)))) {
+    if (!file.exists(file.path("HTML", gsub(".Rmd", ".html", rmd_input, ignore.case=TRUE)))) {
+        message("\n\tThe file ", file.path("HTML", "markdown", gsub(".Rmd", ".md", rmd_input, ignore.case=TRUE)), " was not found, but is required for 
           output_format ", paste(output_format, collapse=", "), ". The 'HTML' step will be added to 'output_format' and run.
-          NOTE: Document ", file.path("HTML", gsub(".Rmd", ".html", rmd_input)), " will be also created.\n")
+          NOTE: Document ", file.path("HTML", gsub(".Rmd", ".html", rmd_input, ignore.case=TRUE)), " will be also created.\n")
         output_format <- c("HTML", output_format)
-    } else stop("\n\tThe file ", file.path("HTML", "markdown", gsub(".Rmd", ".md", rmd_input)), " was not found, but is required for 
+    } else stop("\n\tThe file ", file.path("HTML", "markdown", gsub(".Rmd", ".md", rmd_input, ignore.case=TRUE)), " was not found, but is required for 
         output_format ", paste(output_format, collapse=", "), ". Add 'HTML' the 'output_format' argument and re-run.
-        NOTE: Document ", file.path("HTML", gsub(".Rmd", ".html", rmd_input)), " will be overwritten when re-run.\n")
+        NOTE: Document ", file.path("HTML", gsub(".Rmd", ".html", rmd_input, ignore.case=TRUE)), " will be overwritten when re-run.\n")
   }
   
   ###
@@ -61,7 +61,7 @@ renderMultiDocument <- function (
     renderDOCX(input=rmd_input, self_contained=docx_self_contained, 
     					 number_sections, number_section_depth, docx_css, bibliography, csl, pandoc_args)
     message("\n\n\tDOCX rendering is complete.  The output is the file \n\n\t", 
-            file.path("DOCX", gsub(".Rmd", "-docx.html", rmd_input)), "\n\t
+            file.path("DOCX", gsub(".Rmd", "-docx.html", rmd_input, ignore.case=TRUE)), "\n\t
         In order to create a .docx file from it, you must serve the .html file
         and then copy and paste from the web page to a blank word document.
         see http://gforge.se/2013/12/fast-track-publishing-using-knitr-part-i/
@@ -70,7 +70,7 @@ renderMultiDocument <- function (
         One can now serve local web pages/sites using the R package 'servr'.
         For example, issue the command 'servr::httd(dir = \".\",port=4444)' 
         at the prompt (assuming you have 'servr' installed) and then go to\n", 
-            paste("\n\thttp://localhost:4444/DOCX/", gsub(".Rmd", "-docx.html", rmd_input), sep=""),
+            paste("\n\thttp://localhost:4444/DOCX/", gsub(".Rmd", "-docx.html", rmd_input, ignore.case=TRUE), sep=""),
             "\n\n\tin a web browser. Chrome seems to have the best results, at least in Mac OSX
         (Although Safari preserves math images created by --webtex in pandoc).
         This should preserve all images, formatting, etc. when you copy and paste in Word. 

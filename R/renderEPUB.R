@@ -52,9 +52,7 @@ renderEPUB <- function(
   
   dir.create(file.path("EPUB", "markdown"), recursive=TRUE, showWarnings=FALSE)
   setwd("EPUB")
-  if(grepl(".Rmd", input)) input.md <- gsub(".Rmd", ".md", input)
-  if(grepl(".rmd", input)) input.md <- gsub(".rmd", ".md", input)
-  if(grepl(".RMD", input)) input.md <- gsub(".RMD", ".md", input)
+  input.md <- gsub(".Rmd", ".md", input, ignore.case=TRUE)
 
   ### Check defaults
   epub_number_sections <- ifelse(number_sections, "--number-sections", NULL)
@@ -151,7 +149,7 @@ renderEPUB <- function(
   md.text <- gsub("[(]img", file.path("(.","img"), md.text) #odd - need regexpr in find, but not replace...
   md.text <- gsub("style=''", "style=';'", md.text)
   
-  input.epub <- file.path("markdown", gsub(".md", "-epub.md", input.md))
+  input.epub <- file.path("markdown", gsub(".md", "-epub.md", input.md, ignore.case=TRUE))
   if ("abstract" %in% names(rmd.yaml)) {
     abstract <- paste("<div class='lead' id='document_lead'><p style='text-align:center;'>", rmd.yaml$abstract, "</p></div>")
     writeLines(c(tmp.yaml, abstract, md.text), input.epub)
@@ -195,7 +193,7 @@ renderEPUB <- function(
   }
 
   message("\n\t Rendering EPUB with system call to pandoc:\n\n", 
-          my.pandoc, "-S -o", file.path("EPUB", gsub(".md", ".epub", input.md)), file.path("EPUB", input.epub), tmp_cover, "--epub-stylesheet ", epub_css, epub_template, epub_number_sections, highlight, biblio, csl, pandoc_args, "\n")
+          my.pandoc, "-S -o", file.path("EPUB", gsub(".md", ".epub", input.md, ignore.case=TRUE)), file.path("EPUB", input.epub), tmp_cover, "--epub-stylesheet ", epub_css, epub_template, epub_number_sections, highlight, biblio, csl, pandoc_args, "\n")
 
-  system(paste(my.pandoc, "-S -o", file.path("EPUB", gsub(".md", ".epub", input.md)), file.path("EPUB", input.epub), tmp_cover, "--epub-stylesheet ", epub_css, epub_template, epub_number_sections, highlight, biblio, csl, pandoc_args))
+  system(paste(my.pandoc, "-S -o", file.path("EPUB", gsub(".md", ".epub", input.md, ignore.case=TRUE)), file.path("EPUB", input.epub), tmp_cover, "--epub-stylesheet ", epub_css, epub_template, epub_number_sections, highlight, biblio, csl, pandoc_args))
 }  # End 'renderEPUB' function

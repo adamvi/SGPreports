@@ -54,9 +54,7 @@ renderDOCX <- function(
   ###   DOCX Drafts
   ###
 
-  if(grepl(".Rmd", input)) input.md <- gsub(".Rmd", ".md", input)
-  if(grepl(".rmd", input)) input.md <- gsub(".rmd", ".md", input)
-  if(grepl(".RMD", input)) input.md <- gsub(".RMD", ".md", input)
+  input.md <- gsub(".Rmd", ".md", input, ignore.case=TRUE)
   
   ###  pandoc args
   
@@ -106,7 +104,7 @@ renderDOCX <- function(
     md.text <- md.text[-(comment.start:comment.end)]
   }
   
-  writeLines(md.text, file.path("DOCX", "markdown", gsub(".md", "-docx.md", input.md)))
+  writeLines(md.text, file.path("DOCX", "markdown", gsub(".md", "-docx.md", input.md, ignore.case=TRUE)))
 
   ### Bibliography
 
@@ -124,10 +122,10 @@ renderDOCX <- function(
   
   message("\n\t Rendering DOCX with call to render(... Grmd::docx_document):\n")
   
-  render(file.path("DOCX", "markdown", gsub(".md", "-docx.md", input.md)),
+  render(file.path("DOCX", "markdown", gsub(".md", "-docx.md", input.md, ignore.case=TRUE)),
          Grmd::docx_document(self_contained = self_contained, css=docx_css, number_sections=number_sections, pandoc_args=pandoc_args), output_dir="..")
 
-  file <- file(file.path("DOCX", gsub(".md", "-docx.html", input.md)))
+  file <- file(file.path("DOCX", gsub(".md", "-docx.html", input.md, ignore.case=TRUE)))
   html.text <- readLines(file)
 
   for (header.level in (which(1:6 > number_section_depth))) {
