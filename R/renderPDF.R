@@ -138,9 +138,9 @@ renderPDF <- function (
   
   ### Find pandoc - preference goes to Rstudio version (for now)
   #   my.pandoc <- ifelse(grepl("PANDOC", toupper(Sys.getenv("RSTUDIO_PANDOC"))), Sys.getenv("RSTUDIO_PANDOC"), rmarkdown:::find_program("pandoc"))
-  my.pandoc <- rmarkdown:::find_program("pandoc")
-  my.pandoc_citeproc <- rmarkdown:::find_program("pandoc-citeproc")
-
+  my.pandoc <- rmarkdown:::pandoc()
+  my.pandoc_citeproc <- rmarkdown:::pandoc_citeproc()
+  
   if(nchar(my.pandoc)==0) stop(
     "The program 'pandoc' was not found. Check 'Sys.getenv(\"RSTUDIO_PANDOC\")'.  If necessary,
       please install pandoc directly or a version of Rstudio (>=v0.98.932) that also contains it.")

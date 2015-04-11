@@ -174,7 +174,7 @@ renderEPUB <- function(
   
   ### Find pandoc - preference goes to Rstudio version (for now)
   my.pandoc <- rmarkdown:::pandoc()
-  my.pandoc_citeproc <- rmarkdown:::pandoc-citeproc()
+  my.pandoc_citeproc <- rmarkdown:::pandoc_citeproc()
 
   if(nchar(my.pandoc)==0) stop(
       "The program 'pandoc' was not found. Check 'Sys.getenv(\"RSTUDIO_PANDOC\")'.  If necessary,
