@@ -2,10 +2,10 @@ renderPDF <- function (
   input,  # same as rmd_input in renderMultiDocument, or has full YAML
   keep_tex = FALSE, # passed from 'cleanup_aux_files'
   number_sections=TRUE,
+  convert_header_levels = c(5,6),
   pdf_template = "default",
   bibliography = "default",
   csl = "default",
-  convert_header_levels = c(5,6),
   pandoc_args = NULL) {
 
   ### Initial checks of alternative css and/or pandoc template

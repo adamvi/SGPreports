@@ -43,17 +43,8 @@ renderMultiDocument <- function (
   ###
 
   if ("HTML" %in% output_format) {
-    message("\n\t Rendering HTML with call to render(... Grmd::docx_document):\n")
-    
-    render(rmd_input, multi_document(..., # passed args to rmarkdown::html_document
-              number_sections, number_section_depth, toc, toc_depth, self_contained, dev, 
-              template=html_template, css=html_css, bibliography, csl, pandoc_args),
-          output_dir=file.path(".", "HTML"))
-  
-    ### Move "master" .md file to HTML/markdown directory
-    dir.create(file.path("HTML", "markdown"), showWarnings=FALSE)
-    file.copy(file.path("HTML", gsub(".Rmd", ".md", rmd_input)), file.path("HTML", "markdown"), overwrite=TRUE)
-    file.remove(file.path("HTML", gsub(".Rmd", ".md", rmd_input)))
+  	renderHTML(input=rmd_input, number_sections, number_section_depth, toc, toc_depth,
+  						 self_contained, html_template, html_css, bibliography, csl, pandoc_args)
   }
   
   if ("EPUB" %in% output_format) {
@@ -62,11 +53,13 @@ renderMultiDocument <- function (
   }
     
   if ("PDF" %in% output_format) {
-    renderPDF(input=rmd_input, keep_tex=cleanup_aux_files, number_sections, pdf_template, bibliography, csl, convert_header_levels, pandoc_args)
+    renderPDF(input=rmd_input, keep_tex=cleanup_aux_files, number_sections, convert_header_levels,
+    					pdf_template, bibliography, csl, pandoc_args)
   }
 
   if ("DOCX" %in% output_format) {
-    renderDOCX(input=rmd_input, self_contained=docx_self_contained, number_sections, number_section_depth, docx_css, bibliography, csl, pandoc_args)
+    renderDOCX(input=rmd_input, self_contained=docx_self_contained, 
+    					 number_sections, number_section_depth, docx_css, bibliography, csl, pandoc_args)
     message("\n\n\tDOCX rendering is complete.  The output is the file \n\n\t", 
             file.path("DOCX", gsub(".Rmd", "-docx.html", rmd_input)), "\n\t
         In order to create a .docx file from it, you must serve the .html file

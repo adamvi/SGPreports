@@ -1,5 +1,5 @@
 renderHTML <- function (
-  rmd_input,
+  input,
   number_sections = TRUE,
   number_section_depth=3,
   toc = TRUE,
@@ -40,12 +40,13 @@ renderHTML <- function (
 		}
 	} else html_template <- system.file("rmarkdown", "templates", "multi_document", "resources", "report.html" , package = "SGPreports")
 
-	
   ###
   ###  Render HTML (and master .md file)
   ###
   
-  render(rmd_input, 
+	message("\n\t Rendering HTML with call to render(... multi_document):\n")
+	
+	render(rmd_input, 
   			 multi_document(..., # passed args to rmarkdown::html_document
   			 							 number_sections, number_section_depth, toc, toc_depth, self_contained, dev,
   			 							 template=html_template, css=html_css, bibliography, csl, pandoc_args),
