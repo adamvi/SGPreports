@@ -14,7 +14,7 @@ order to keep track of the current number.  Also increases the
 table number BEFORE processing the caption using \link{tblNumIncrement}.
 }
 \examples{
-org_opts <- options(table_counter=1)
+options(table_counter=1)
 tblCap("My table caption is great.")
 
 # Returns ' **Table 2:**  My table caption is great. '
