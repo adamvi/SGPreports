@@ -72,9 +72,8 @@ renderHTML <- function (
 	
 	render(input, 
   			 multi_document(..., # passed args to rmarkdown::html_document
-  			 							 number_sections=number_sections, number_section_depth=number_section_depth, toc=toc, toc_depth=toc_depth,
-  			 							 self_contained=self_contained, dev=dev, template=html_template, css=html_css,
-  			 							 bibliography=NULL, csl=NULL, pandoc_args=pandoc_args), # bibliography & csl processed through pandoc args already, dependency_resolver=rmarkdown:::html_dependency_resolver
+  			 				number_sections=number_sections, number_section_depth=number_section_depth, toc=toc, toc_depth=toc_depth,
+  			 				self_contained=self_contained, dev=dev, template=html_template, css=html_css, pandoc_args=pandoc_args), # bibliography & csl processed through pandoc args already, dependency_resolver=rmarkdown:::html_dependency_resolver
   			     output_dir=file.path(".", "HTML"))
 	
 	### Move "master" .md file to HTML/markdown directory
