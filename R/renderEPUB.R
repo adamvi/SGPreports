@@ -193,7 +193,7 @@ renderEPUB <- function(
   }
 
   message(paste("\n\t Rendering EPUB with system call to pandoc:\n\n", 
-          my.pandoc, "-S -o", file.path("EPUB", gsub(".md", ".epub", input.md, ignore.case=TRUE)), "-t epub3", file.path("EPUB", input.epub), tmp_cover, "--epub-stylesheet ", epub_css, epub_template, epub_number_sections, highlight, biblio, csl, pandoc_args, "\n"))
+          my.pandoc, "-S -o", file.path("EPUB", gsub(".md", ".epub", input.md, ignore.case=TRUE)), file.path("EPUB", input.epub), tmp_cover, "--epub-stylesheet ", epub_css, epub_template, epub_number_sections, highlight, biblio, csl, pandoc_args, "\n"))
 
-  system(paste(my.pandoc, "-S -o", file.path("EPUB", gsub(".md", ".epub", input.md, ignore.case=TRUE)), "-t epub3", file.path("EPUB", input.epub), tmp_cover, "--epub-stylesheet ", epub_css, epub_template, epub_number_sections, highlight, biblio, csl, pandoc_args))
+  system(paste(my.pandoc, "-S -o", file.path("EPUB", gsub(".md", ".epub", input.md, ignore.case=TRUE)), file.path("EPUB", input.epub), tmp_cover, "--epub-stylesheet ", epub_css, epub_template, epub_number_sections, highlight, biblio, csl, pandoc_args))
 }  # End 'renderEPUB' function
