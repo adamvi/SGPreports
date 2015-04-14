@@ -51,9 +51,11 @@ renderHTML <- function (
 		if (bibliography == "default") {
 			pandoc_args <-c(pandoc_args, "--filter", my.pandoc_citeproc, "--bibliography", 
 											system.file("rmarkdown", "templates", "multi_document", "resources", "educ.bib" , package = "SGPreports"))
+			bibliography <- NULL
 		} else {
 			if(file.exists(bibliography)) {
 				pandoc_args <-c(pandoc_args, "--filter", my.pandoc_citeproc, "--bibliography", bibliography)
+				bibliography <- NULL
 			} else stop("'bibliography' file not found.")
 		}
 	}
@@ -63,8 +65,14 @@ renderHTML <- function (
 		if (csl != "default") {
 			if (!file.exists(csl)) {
 				stop("The csl file that you've specified can't be found in the file path provided.")
-			} else pandoc_args <- c(pandoc_args, "--csl", csl) # Use pandoc_args here since docx_document passes that to html_document
-		} else pandoc_args <- c(pandoc_args, "--csl", system.file("rmarkdown", "templates", "multi_document", "resources", "apa.csl" , package = "SGPreports"))
+			} else {
+				pandoc_args <- c(pandoc_args, "--csl", csl) # Use pandoc_args here since docx_document passes that to html_document
+				csl <- NULL
+			}
+		} else {
+			pandoc_args <- c(pandoc_args, "--csl", system.file("rmarkdown", "templates", "multi_document", "resources", "apa.csl" , package = "SGPreports"))
+			csl <- NULL
+		}
 	}
 
 	###
