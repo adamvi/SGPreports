@@ -1,11 +1,11 @@
 ---
 title: "An Example *'SGPreport'* Document:"
-subtitle: Package Vignette and Overview.
+subtitle: Package Vignette and Overview
 author:
-  - name: First A. Author
+  - name: "First A. Author"
     affiliation: Some Organization, LLC
     email: email@mail.com
-  - name: Second B. Author
+  - name: "Second B. Author"
     affiliation: Some University
     email: email@mail.edu
 date: "`r Sys.Date()`"

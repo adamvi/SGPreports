@@ -32,7 +32,7 @@ renderHTML <- function (
 					 											 collapse = "', '"), "'", " can't be found in the file path provided.")
 		}
 	} else html_css <- system.file("rmarkdown", "templates", "multi_document", "resources", "report.css" , package = "SGPreports")
-	if (html_css != "-default" & html_css != "default") {
+	if (any(html_css != "-default")) {
 		html_css <- c(html_css, system.file("rmarkdown", "templates", "multi_document", "resources", "report.css" , package = "SGPreports"))
 	}
 		

@@ -23,7 +23,7 @@ multi_document <- function (
 	### Initial checks of alternative css and/or pandoc template
   
   ##  CSS check from Grmd::docx_document - credit to Max Gordon/Gforge https://github.com/gforge
-  if (css != "default") {
+  if (any(css != "default")) {
     if (!all(sapply(css, file.exists))) {
       alt_css <- list.files(pattern = ".css$")
       if (length(alt_css) > 0) {
@@ -41,7 +41,10 @@ multi_document <- function (
            getwd(), "'", " - i.e. the directory where you have your .Rmd-file", alt_css)
     }
   } else css <- system.file("rmarkdown", "templates", "multi_document", "resources", "report.css" , package = "SGPreports")
-
+	if (any(css != "-default")) {
+		css <- c(css, system.file("rmarkdown", "templates", "multi_document", "resources", "report.css" , package = "SGPreports"))
+	}
+	
   ##  Check csl file  
   if (!is.null(csl)) {
     if (csl != "default") {
