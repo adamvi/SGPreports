@@ -1,14 +1,14 @@
 ---
-title: "An Example *'SGPreport'* Document:"
+title: "An Example *'SGPreport'* Document"
 subtitle: Package Vignette and Overview
 author:
-  - name: "First A. Author"
+  - name: First A. Author
     affiliation: Some Organization, LLC
     email: email@mail.com
-  - name: "Second B. Author"
+  - name: Second B. Author
     affiliation: Some University
     email: email@mail.edu
-date: "`r Sys.Date()`"
+date: April 2015
 abstract: Here is some text about the document - something like an abstract ... Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur lobortis lectus et tellus pharetra sodales. Duis eget sapien quis urna sagittis facilisis. Ut aliquam dui ut est euismod a mattis magna semper. Curabitur nec magna turpis. Etiam suscipit lectus vel lacus dignissim sollicitudin non at nisi. Proin ut nibh non magna vulputate laoreet in eget felis. Vivamus eget turpis nulla. Aliquam erat volutpat. Suspendisse potenti. Nullam viverra diam sit amet risus fermentum iaculis. Integer vitae purus eu urna ultrices sodales vel sed nisl. Cras lorem est, ultrices sed vulputate in, mattis ac justo.
 meta_title: SGPreport Document
 javascript:
