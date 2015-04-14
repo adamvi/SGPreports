@@ -23,6 +23,16 @@ $for(header-includes)$
 $header-includes$
 $endfor$
 
+$if(javascript)$
+$for(javascript.css)$
+<link rel='stylesheet' href=$javascript.css$>
+$endfor$
+
+$for(javascript.js)$
+<script src=$javascript.js$></script>
+$endfor$
+$endif$
+
 $if(highlightjs)$
 <style type="text/css">code{white-space: pre;}</style>
 <link rel="stylesheet"
