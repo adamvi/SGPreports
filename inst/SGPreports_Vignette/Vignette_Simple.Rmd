@@ -28,7 +28,7 @@ This "simple" version of the two vignette documents is meant to show how a "pure
 
 ```{r, echo=FALSE, include=FALSE}
 ##  Set Table, Figure and Equation Counters  
-  options(table_counter=0)
+  options(table_number=0)
   options("fig_caption_no"=0)
 	options(fig_caption_no_sprintf = "**Figure %s:**   %s")
 	options("fig_caption_no_roman"=FALSE)
@@ -99,7 +99,7 @@ Fortunately in there are packages in `R` that can assist in constructing these t
 
 ```{r, results='asis', echo=TRUE, dualTable_example}
 
-options(table_counter=1)
+options(table_number=1)
 
 output <- matrix(1:4,
                  ncol=2,

@@ -37,7 +37,7 @@ This document was written by ...
 	require(Gmisc)
 
 ##  Set Table, Figure and Equation Counters  
-  options(table_counter=0)
+  options(table_number=0)
   options("fig_caption_no"=0)
 	options(fig_caption_no_sprintf = "**Figure %s:**   %s")
 	options("fig_caption_no_roman"=FALSE)
@@ -280,9 +280,9 @@ HTML Provides the most flexible table presentation I've found.  Here is another 
 Fortunately in there are packages in `R` that can assist in constructing these tables.  The [`htmlTable` package](http://cran.r-project.org/web/packages/htmlTable/index.html) allows for the construction of complex tables from `matrix` and `data.frame` class objects.  The `SGPreports` package has a similar function, `dualTable`, which actually produces both `htmlTable` and `latex` (from the `Hmisc` package) table versions. Here is an example:
 
 ```{r, results='asis', echo=TRUE, dualTable_example}
-# First set the table_counter to the correct number of tables displayed so far:
+# First set the table_number to the correct number of tables displayed so far:
 
-  options(table_counter=3)
+  options(table_number=3)
 
 # An advanced output
 output <-
