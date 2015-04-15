@@ -23,7 +23,7 @@ renderPDF <- function (
       if (!file.exists(csl)) {
         stop("The csl file that you've specified can't be found in the file path provided.")
       } else csl <- paste("--csl", csl)
-    } else csl <- paste("--csl", system.file("rmarkdown", "templates", "multi_document", "resources", "apa.csl" , package = "SGPreports"))
+    } else csl <- paste("--csl", system.file("rmarkdown", "templates", "multi_document", "resources", "apa-5th-edition.csl" , package = "SGPreports"))
   }
   
   ###  pandoc args

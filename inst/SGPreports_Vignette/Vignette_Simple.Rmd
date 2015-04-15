@@ -86,7 +86,7 @@ Here is an attempt I made at making a more complex markdown table using separato
 
 
 |----------------+-------------+------------+------------+-------------+------------+--------------|
-|**Table 1.**    |             |            |            |             |            |              |
+| Table 1.       |             |            |            |             |            |              |
 |                | **Aliquam** |  **Leo**   |  **Lorem** |             | **Aliquam**| **Leo Nibh** |
 |                |.............|............|............|             |            |              |
 |                |  *Nec Nibh* | *Ultricies*|*Cras Purus*| *Nec Nibh*  |*Ultricies* | *Cras Purus* |
