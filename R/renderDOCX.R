@@ -113,9 +113,13 @@ renderDOCX <- function(
   	if (bibliography == "default") {
       pandoc_args <-c(pandoc_args, "--filter", my.pandoc_citeproc, "--bibliography", 
                       system.file("rmarkdown", "templates", "multi_document", "resources", "educ.bib" , package = "SGPreports"))
+      bibliography <- NULL
     } else {
       if(file.exists(bibliography)) {
         pandoc_args <-c(pandoc_args, "--filter", my.pandoc_citeproc, "--bibliography", bibliography)
+        file.copy(from = bibliography, to = ".", overwrite = TRUE)
+        file.copy(from = bibliography, to = tmp_render_dir, overwrite = TRUE)
+        bibliography <- NULL
       } else stop("'bibliography' file not found.")
     }
   }
