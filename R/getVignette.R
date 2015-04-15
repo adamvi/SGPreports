@@ -10,6 +10,7 @@ message(
 	
 			renderMultiDocument(
 				rmd_input = 'Vignette_Simple.Rmd',
+				output_format=c('HTML', 'EPUB', 'PDF', 'DOCX'),
 				bibliography = 'mybibliography.bib',
 				pandoc_args = '--webtex'
 			)

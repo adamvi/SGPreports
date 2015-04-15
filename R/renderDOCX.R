@@ -117,7 +117,7 @@ renderDOCX <- function(
     } else {
       if(file.exists(bibliography)) {
         pandoc_args <-c(pandoc_args, "--filter", my.pandoc_citeproc, "--bibliography", bibliography)
-        file.copy(from = bibliography, to = ".", overwrite = TRUE)
+        file.copy(from = bibliography, to = file.path("DOCX", "markdown"), overwrite = TRUE)
         file.copy(from = bibliography, to = tmp_render_dir, overwrite = TRUE)
         bibliography <- NULL
       } else stop("'bibliography' file not found.")
