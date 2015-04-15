@@ -55,7 +55,7 @@ multi_document <- function (
       	csl <- NULL
       }
     } else {
-    	pandoc_args <- c(pandoc_args, "--csl", system.file("rmarkdown", "templates", "multi_document", "resources", "apa.csl" , package = "SGPreports"))
+    	pandoc_args <- c(pandoc_args, "--csl", system.file("rmarkdown", "templates", "multi_document", "resources", "apa-5th-edition.csl" , package = "SGPreports"))
     	csl <- NULL
     }
   }
