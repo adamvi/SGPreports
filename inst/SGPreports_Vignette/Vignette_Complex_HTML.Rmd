@@ -1,5 +1,5 @@
 ---
-title: "An Example *'SGPreport'* Document"
+title: "An Example *'SGPreport'* Document:"
 subtitle: Package Vignette and Overview
 author:
   - name: First A. Author
@@ -55,7 +55,7 @@ This section provides an explanation of the YAML front matter required to produc
 
 Here is a list of common elements (displayed in an ordered list using markdown syntax):
 
-1. **`title`** - This is the printed title at the top of the document.  Notice the title entry in the source Rmarkdown document is in quotations because it contains a colon at the end.  Since this character is interpreted in YAML as something else, the title must be in quotes.  Also notice that it is formatted using the markdown italics syntax.
+1. **`title`** - This is the printed title at the top of the document.  Notice the title entry in the source Rmarkdown document is in quotations because it contains a colon at the end.  Since this character is interpreted in YAML as something else, the title must be in quotes.  Take care using these characters as they my cause issues with other formats.  For example, this currently causes the EPUB rendering to choke.  Also notice that this title includes the markdown italics formatting syntax.
 2. **`subtitle`** - This is the (optional) subtitle which appears directly below the title in all document output formats, including EPUB cover pages.  No illegal characters here, so it is not enclosed in quotes.
 3. **`author`** - The document author(s).  This can be as simple as a single author (`author: First Author`), or include several authors and additional information about them (including their organizational affiliation and an email address).
 4. **`abstract`** - This is the (optional) blurb that appears underneath the document tittle in the HTML output, and on the second page of the EPUB and PDF documents.

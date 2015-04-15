@@ -27,17 +27,12 @@ This "simple" version of the two vignette documents is meant to show how a "pure
   - This is an unordered list element
 
 ```{r, echo=FALSE, include=FALSE}
-
-##  Load SGP and other packages here to avoid messages.
-  require(SGPreports)
-
 ##  Set Table, Figure and Equation Counters  
   options(table_counter=0)
   options("fig_caption_no"=0)
 	options(fig_caption_no_sprintf = "**Figure %s:**   %s")
 	options("fig_caption_no_roman"=FALSE)
 	options("equation_counter" = 0)
-
 ```
 
 This document is set up to use the package defaults.  This includes:
@@ -56,7 +51,7 @@ This document is set up to use the package defaults.  This includes:
 
 Additionally, this simple vignette supplies the additional argument "--webtex" to pandoc for processing LaTeX style equations in HTML.  Although there are other (more popular) options, such as `MathJax`, this option works with both HTML and EPUB (and in some use cases DOCX) formats.  PDF output format simply uses LaTeX to format and process equations.
 
-For more interesting and sophisticated uses of this package's features (particularly with HTML output), see the results of the "Vignette_Complex_HTML.Rmd" file and its output.  From this point forward only the section, subsection and sub-subsection headers are in English.  All other text is Lorem Epsum gobbledy gook.
+For more interesting and sophisticated uses of this package's features (particularly with HTML output), see the results of the `Vignette_Complex_HTML.Rmd` file and its output.  From this point forward only the section, subsection and sub-subsection headers are in English.  All other text is Lorem Epsum gobbledy gook.
 
 ##  First Subsection
 Sed dignissim lacinia nunc. Curabitur tortor. Pellentesque nibh. Aenean quam. In scelerisque sem at dolor. Maecenas mattis. Sed convallis tristique sem. Proin ut ligula vel nunc egestas porttitor. Morbi lectus risus, iaculis vel, suscipit quis, luctus non, massa. Fusce ac turpis quis ligula lacinia aliquet. Mauris ipsum. Nulla metus metus, ullamcorper vel, tincidunt sed, euismod in, nibh. Quisque volutpat condimentum velit. 
@@ -66,20 +61,12 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praes
 
 
 # Section Numbering
-In markdown, main sections are indicated by a single hash mark (`#`), usually followed by a title.  Subsections have two hash marks and so on.  There are (at least) 6 such "header levels" supported in markdown and HTML, but only the first three are used for section numbering by default (although this can be changed through functions' `number_section_depth` argument).  Only the first 2 section levels are currently included in the HTML documents table of contents, but more levels are supported in the PDF version.
+In markdown, main sections are indicated by a single hash mark (#), usually followed by a title.  Subsections have two hash marks and so on.  There are (at least) 6 such "header levels" supported in markdown and HTML, but only the first three are used for section numbering by default (although this can be changed through functions' `number_section_depth` argument).  Only the first 2 section levels are currently included in the HTML documents table of contents, but more levels are supported in the PDF version^[PDF table of contents are not displayed in the document, but are included as bookmarks that can be used to navigate the document].
 
 ## Header Levels 5 and 6
 In some document formats (some academic journals for example), the captions for figures are placed underneath the figure in the document.  I find this annoying, so the header levels 5 and 6 have been set up to function as figure captions.  Examples of this can be found in the [section on images below.](#figures-and-images)
 
-```R
-##### Level-5 Headers can be used to produce stylized figure captions,
-      tailored for big images that take up the entire width of the document`.
-```
-
-```R
-###### Level-6 Headers can be used to produce stylized figure captions,
-      tailored for small images that can be placed side by side`.
-```
+Level-5 Headers can be used to produce stylized figure captions, tailored for big images that take up the entire width of the document.  Level-6 Headers can be used to produce stylized figure captions, tailored for small images that can be placed side by side.
 
 # Tables
 
@@ -94,12 +81,12 @@ Colons can be used to align columns.
 | col 2 is      | centered      |   $12 |
 | zebra stripes | are neat      |    $1 |
 
-
 ### Complex Markdown Tables
 Here is an attempt I made at making a more complex markdown table using separators to mark two main sections of the table (**Aliquam Leo Lorem** and **Aliquam Leo Nibh**).  Multiple column spanning is not possible, so I try to place and align columns as best as possible.
 
+
 |----------------+-------------+------------+------------+-------------+------------+--------------|
-|***Table 1.***  |             |            |            |             |            |              |
+|**Table 1.**    |             |            |            |             |            |              |
 |                | **Aliquam** |  **Leo**   |  **Lorem** |             | **Aliquam**| **Leo Nibh** |
 |                |.............|............|............|             |            |              |
 |                |  *Nec Nibh* | *Ultricies*|*Cras Purus*| *Nec Nibh*  |*Ultricies* | *Cras Purus* |
@@ -111,41 +98,16 @@ Here is an attempt I made at making a more complex markdown table using separato
 Fortunately in there are packages in `R` that can assist in constructing these tables.  The [`htmlTable` package](http://cran.r-project.org/web/packages/htmlTable/index.html) allows for the construction of complex tables from `matrix` and `data.frame` class objects.  The `SGPreports` package has a similar function, `dualTable`, which actually produces both `htmlTable` and `latex` (from the `Hmisc` package) table versions. Here is an example of how to use the function - it is inserted in a `knitr` code chunk, which is turned from `R` code to HTML and LaTeX output when either the `render(...)` or `renderMultiDocument` functions are used to process this source file:
 
 ```{r, results='asis', echo=TRUE, dualTable_example}
-# First set the table_counter to the correct number of tables displayed so far:
 
-  options(table_counter=3)
+options(table_counter=1)
 
-# An advanced output
-output <-
-  matrix(ncol=6, nrow=8)
+output <- matrix(1:4,
+                 ncol=2,
+                 dimnames = list(list("Row 1", "Row 2"),
+                                 list("Column 1", "Column 2")))
 
-for (nr in 1:nrow(output)){
-  for (nc in 1:ncol(output)){
-    output[nr, nc] <-
-      paste0(nr, ":", nc)
-  }
-}
+dualTable(output, caption="Simple Test Table")
 
-cat(dualTable(output, align="r",
-          header =  paste(c("1st", "2nd",
-                            "3rd", "4th",
-                            "5th", "6th"),
-                          "hdr"),
-          rnames = paste(c("1st", "2nd",
-                           "3rd",
-                           paste0(4:8, "th")),
-                         "row"),
-          rgroup = paste("Group", LETTERS[1:3]),
-          n.rgroup = c(2,4,nrow(output) - 6),
-          cgroup = c("", "Cgroup 1", "Cgroup 2&dagger;"),
-          n.cgroup = c(2,2,2),
-          caption="Basic table with both column spanners (groups) and row groups",
-          tfoot="&dagger; A table footer commment",
-          cspan.rgroup = 2,
-          col.columns = c(rep("none", 2),
-                          rep("#F5FBFF", 4)),
-          col.rgroup = c("none", "#F7F7F7"),
-          css.cell = "padding-left: .5em; padding-right: .2em;"))
 
 ```
 
@@ -159,14 +121,11 @@ Markdown allows for LaTeX style math formulas.  One of the more popular ways of 
 
 Both inline and display equations are available.  Display equations can include an equation counter as well.  Equations are written in LaTeX and interpreted into HTML by one of several options through pandoc ([see demo 16 and 17](http://pandoc.org/demos.html)). Although `MathJax` is a common option in many applications, `webtex` has shown to be a reliable workhorse for standalone documents including the HTML and EPUB formats.
 
-In order to include an inline LaTeX equation you enclose the code in `$` delimiters.  For example, this code `$\frac{1}{n} \sum_{i=1}^{n} x_{i}$` for the arithmetic mean produces this $\frac{1}{n} \sum _{i=1}^{n} x _{i}$ inline equation.  More complex, or important, equations may need their own line, or "display".  Displayed equations can also be numbered according to the order of presentation and referenced later in the document by appending the string  `\hspace{2pt} \text{(INSERT NUMBER or EQUATION NUMBER CODE)} \hspace{55pt}`.  For example:
-
+In order to include an inline LaTeX equation you enclose the code in dollar sign delimiters.  For example, this code `$\frac{1}{n} \sum_{i=1}^{n} x_{i}$` for the arithmetic mean produces this $\frac{1}{n} \sum _{i=1}^{n} x _{i}$ inline equation.  More complex, or important, equations may need their own line, or "display".  Displayed equations can also be numbered according to the order of presentation and referenced later in the document.  For example:
 
 $$\hspace{2pt} \text{(`r eqnNumNext()`)} \hspace{55pt} MSE = \frac{1}{n} \sum_ {i=1}^n (\widehat{\theta}_ {i} - \theta_i)^2$$
 
-
 $$\hspace{2pt} \text{(`r eqnNumNext()`)} \hspace{55pt} MSE(\hat{\theta}) = \mathbb{E}[(\hat{\theta} - \theta)^2]$$
-
 
 Etiam ultrices. Suspendisse in justo eu magna luctus suscipit. Sed lectus. Integer euismod lacus luctus magna. Quisque cursus, metus vitae pharetra auctor, sem massa mattis sem, at interdum magna augue eget diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Morbi lacinia molestie dui. Praesent blandit dolor. Sed non quam. In vel mi sit amet augue congue elementum. Morbi in ipsum sit amet pede facilisis laoreet. 
 
@@ -176,20 +135,22 @@ Here are some examples of how to include figures.  These examples are limited to
 
 ## Static Figures
 Figures should always be located in the `img` subdirectory of the document folder in order to be included directly into the document.  The first figure is included without the need to resize the .png image, and so the markdown code is fairly simple:
-`!['From a File in the SGPreports_Vignette/img Directory.'](img/Fig_1.png)`
 
-!["From a File in the SGPreports_Vignette/img Directory."](img/Fig_1.png)
+```R
+!['An Image File in the /img Directory.'](img/Fig_1.png)
+```
+
+!["An Image File in the /img Directory."](img/Fig_1.png)
 
 
 ## Images from the Web
 Images can also be sourced from the web by including the URL in the code.  Further image formatting and layout features are also available through the use of the "Header Level 5 and 6" caption feature included in the package , as this example also shows in the markdown source file.
 
-```html
-##### `r figCapNo("The second figure of this document has been sourced from the interwebs.")`
+```R
 ![](http://octodex.github.com/images/baracktocat.jpg)
 ```
 
-##### `r figCapNo("The second figure of this document has been sourced from the interwebs.")`
+##### `r Gmisc::figCapNo("The second figure of this document has been sourced from the interwebs.")`
 ![](http://octodex.github.com/images/baracktocat.jpg)
 
 # Notes and Citations
@@ -208,11 +169,9 @@ Here is a footnote reference,[^2] and another.[^longnote]
 
 [^longnote]: Here's one with multiple blocks.
 
-    Subsequent paragraphs are indented to show that they
-belong to the previous footnote.
-
-        { some.code }
-
+    Subsequent paragraphs are indented to show that they 
+    belong to the previous footnote.
+        
     The whole paragraph can be indented, or just the first
     line.  In this way, multi-paragraph footnotes work like
     multi-paragraph list items.
