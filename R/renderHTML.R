@@ -44,36 +44,36 @@ renderHTML <- function (
 		}
 	} else html_template <- system.file("rmarkdown", "templates", "multi_document", "resources", "report.html" , package = "SGPreports")
 
-	### Bibliography
-	
-	if (!is.null(bibliography)) {
-		my.pandoc_citeproc <- rmarkdown:::pandoc_citeproc()
-		if (bibliography == "default") {
-			pandoc_args <-c(pandoc_args, "--filter", my.pandoc_citeproc, "--bibliography", 
-											system.file("rmarkdown", "templates", "multi_document", "resources", "educ.bib" , package = "SGPreports"))
-			bibliography <- NULL
-		} else {
-			if(file.exists(bibliography)) {
-				pandoc_args <-c(pandoc_args, "--filter", my.pandoc_citeproc, "--bibliography", bibliography)
-				bibliography <- NULL
-			} else stop("'bibliography' file not found.")
-		}
-	}
-	
-	##  Check csl file  
-	if (!is.null(csl)) {
-		if (csl != "default") {
-			if (!file.exists(csl)) {
-				stop("The csl file that you've specified can't be found in the file path provided.")
-			} else {
-				pandoc_args <- c(pandoc_args, "--csl", csl) # Use pandoc_args here since docx_document passes that to html_document
-				csl <- NULL
-			}
-		} else {
-			pandoc_args <- c(pandoc_args, "--csl", system.file("rmarkdown", "templates", "multi_document", "resources", "apa-5th-edition.csl" , package = "SGPreports"))
-			csl <- NULL
-		}
-	}
+# 	### Bibliography
+# 	
+# 	if (!is.null(bibliography)) {
+# 		my.pandoc_citeproc <- rmarkdown:::pandoc_citeproc()
+# 		if (bibliography == "default") {
+# 			pandoc_args <-c(pandoc_args, "--filter", my.pandoc_citeproc, "--bibliography", 
+# 											system.file("rmarkdown", "templates", "multi_document", "resources", "educ.bib" , package = "SGPreports"))
+# 			bibliography <- NULL
+# 		} else {
+# 			if(file.exists(bibliography)) {
+# 				pandoc_args <-c(pandoc_args, "--filter", my.pandoc_citeproc, "--bibliography", bibliography)
+# 				bibliography <- NULL
+# 			} else stop("'bibliography' file not found.")
+# 		}
+# 	}
+# 	
+# 	##  Check csl file  
+# 	if (!is.null(csl)) {
+# 		if (csl != "default") {
+# 			if (!file.exists(csl)) {
+# 				stop("The csl file that you've specified can't be found in the file path provided.")
+# 			} else {
+# 				pandoc_args <- c(pandoc_args, "--csl", csl) # Use pandoc_args here since docx_document passes that to html_document
+# 				csl <- NULL
+# 			}
+# 		} else {
+# 			pandoc_args <- c(pandoc_args, "--csl", system.file("rmarkdown", "templates", "multi_document", "resources", "apa-5th-edition.csl" , package = "SGPreports"))
+# 			csl <- NULL
+# 		}
+# 	}
 
 	###
   ###  Render HTML (and master .md file)
