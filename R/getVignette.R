@@ -10,9 +10,9 @@ message(
 	
 			renderMultiDocument(
 				rmd_input = 'Vignette_Simple.Rmd',
-				bibliography = 'mybibliography.bib'
-				pandoc_args: '--webtex'
-				)
+				bibliography = 'mybibliography.bib',
+				pandoc_args = '--webtex'
+			)
 	
 	The second file is only meant to be rendered in HTML. This can be done by either using the 'knit' 
 	capabilities in Rstudio (the 'knit' button or Shift+Command/Control+K), or by issuing the 
