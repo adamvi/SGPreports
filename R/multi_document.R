@@ -74,11 +74,11 @@ multi_document <- function (
     if (bibliography == "default") {
       pandoc_args <-c(pandoc_args, "--filter", my.pandoc_citeproc, "--bibliography", 
                       system.file("rmarkdown", "templates", "multi_document", "resources", "educ.bib" , package = "SGPreports"))
-      bibliography <- NULL
-     } else {
+      rm(bibliography)
+    } else {
       if(file.exists(bibliography)) {
         pandoc_args <-c(pandoc_args, "--filter", my.pandoc_citeproc, "--bibliography", bibliography)
-        bibliography <- NULL
+        rm(bibliography)
       } else stop("'bibliography' file not found.")
     }
   }
