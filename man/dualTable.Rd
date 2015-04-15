@@ -52,7 +52,7 @@ function's documentation for more details.
 
 \examples{
 # A simple output
-options(table_counter=0)
+options(table_number=0)
 
 output <- matrix(1:4,
                  ncol=2,
