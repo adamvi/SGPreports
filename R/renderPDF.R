@@ -76,8 +76,8 @@ renderPDF <- function (
     md.text <- c(rmd.yaml, md.text[start.index:length(md.text)])
   } else md.text <- c(rmd.yaml, md.text)
   
-  for(j in grep("[{]55pt[}]", md.text)) md.text[j] <- gsub(".*[{]55pt[}]", "\\\\begin{equation}", md.text[j])
-  for(j in grep("[$][$]", md.text)) md.text[j] <- gsub("[$][$]", "\\\\end{equation}", md.text[j])
+  for(j in grep("[{]55pt[}]", md.text)) md.text[j] <- gsub(".*[{]55pt[}]", "\\\\begin{multline}", md.text[j])
+  for(j in grep("[$][$]", md.text)) md.text[j] <- gsub("[$][$]", "\\\\end{multline}", md.text[j])
   
   for(j in grep("<sup>th</sup>", md.text)) md.text[j] <- gsub("<sup>th</sup>", "$^{th}$", md.text[j])
   for(j in grep("<sup>st</sup>", md.text)) md.text[j] <- gsub("<sup>st</sup>", "$^{st}$", md.text[j])
