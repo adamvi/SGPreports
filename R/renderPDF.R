@@ -111,6 +111,9 @@ renderPDF <- function (
   
   md.text <- gsub("LaTeX_End -->", "", md.text)
   
+  ## Get rid of random latex(...) comments
+  for(j in grep("%latex", md.text)) md.text[j] <- ""
+
   ### Use implicit_figures in pandoc - move header (5 & 6) caption titles into markdown position :: i.e. ![{here}](img...)
   for (header.level in rev(convert_header_levels)) {
     header <- paste(paste(rep("#", header.level), collapse=""), "")
