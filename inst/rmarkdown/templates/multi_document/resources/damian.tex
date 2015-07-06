@@ -165,8 +165,6 @@ $endif$
 \SetMathAlphabet\mathbbmss{bold}{U}{bbmss}{bx}{n}
 \DeclareMathAlphabet{\mathbbmtt}{U}{bbmtt}{m}{n}
 
-\begin{document}
-
 $if(macros)$
 \input $macros$
 $endif$
@@ -178,6 +176,8 @@ $endif$
 \newcommand{\Astar}[1]{\ensuremath{#1^{^*}}}
 \thispagestyle{plain}
 \pagestyle{damian}
+
+\begin{document}
 
 \title{\textsf{\LARGE $title$ $if(subtitle)$ \\\medskip $subtitle$ $endif$}}
 \author{$for(author)$ $if(author.name)$ $author.name$ $if(author.affiliation)$ \\ $author.affiliation$ \\ $endif$ $else$ $author$ $endif$ $sep$ \\ $endfor$}
