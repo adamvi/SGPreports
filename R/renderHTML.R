@@ -39,7 +39,7 @@ renderHTML <- function (
   ### Check pandoc template
   
 	if (html_template != "default") {
-		if (html_template != "simple") html_template <- system.file("rmarkdown", "templates", "multi_document", "resources", "report_simple.html" , package = "SGPreports")
+		if (html_template == "simple") html_template <- system.file("rmarkdown", "templates", "multi_document", "resources", "report_simple.html" , package = "SGPreports")
 		if (!file.exists(html_template)) {
 			stop("The html_template file that you've specified can't be found in the file path provided.")
 		}
