@@ -93,8 +93,9 @@ renderDOCX <- function(
     md.text <- md.text[-(latex.start:latex.end)]
   }
   
-  if (!is.na(start.index <- grep("<!--SGPreport-->", md.text))) {
-    md.text <- c(docx.rmd.yaml, md.text[(start.index-1):length(md.text)])
+  if (any(grepl("<!--SGPreport-->", md.text))) {
+  	start.index <- grep("<!--SGPreport-->", md.text)
+  	md.text <- c(docx.rmd.yaml, md.text[(start.index-1):length(md.text)])
   } else md.text <- c(docx.rmd.yaml, md.text)
 
   ### Clean out remaining HTML/markdown comments

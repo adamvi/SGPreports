@@ -72,8 +72,9 @@ renderPDF <- function (
   close(file)
   
   ### Combine rmd.yaml and md.text so that HTML tags get reformated too.
-  if (!is.na(start.index <- grep("<!--SGPreport-->", md.text))) {
-    md.text <- c(rmd.yaml, md.text[start.index:length(md.text)])
+  if (any(grepl("<!--SGPreport-->", md.text))) {
+  	start.index <- grep("<!--SGPreport-->", md.text)
+  	md.text <- c(rmd.yaml, md.text[start.index:length(md.text)])
   } else md.text <- c(rmd.yaml, md.text)
   
   tmp.latex.eqn <- list()

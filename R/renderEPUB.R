@@ -127,8 +127,9 @@ renderEPUB <- function(
     md.text <- md.text[-(latex.start:latex.end)]
   }
   
-  if (!is.na(start.index <- grep("<!--SGPreport-->", md.text))) {
-    md.text <- md.text[start.index:length(md.text)]
+  if (any(grepl("<!--SGPreport-->", md.text))) {
+  	start.index <- grep("<!--SGPreport-->", md.text)
+  	md.text <- md.text[start.index:length(md.text)]
   }
 
   for (header.level in rev(convert_header_levels)) {
