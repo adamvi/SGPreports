@@ -57,7 +57,8 @@ renderMultiDocument(rmd_input,
   \item{html_template}{Pandoc template to use for HTML rendering. Pass "default"
   to use the SGPreports package default template.  Note that if you don't
   use the "default" template then the features of \code{multi_document} 
-  won't be available.}
+  won't be available.  Additionally, there is a 'simple' version that does not include the 
+  table of contents or the two-toned background (useful for printing/PDF via browser).}
   \item{epub_template}{Pandoc template to use for EPUB rendering. Default is NULL,
   which uses Pandoc's base template.}
   \item{pdf_template}{Pandoc template to use for PDF rendering. Pass "default"
