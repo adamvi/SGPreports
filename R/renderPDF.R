@@ -76,8 +76,12 @@ renderPDF <- function (
     md.text <- c(rmd.yaml, md.text[start.index:length(md.text)])
   } else md.text <- c(rmd.yaml, md.text)
   
-  for(j in grep("[{]55pt[}]", md.text)) md.text[j] <- gsub(".*[{]55pt[}]", "\\\\begin{multline}", md.text[j])
-  for(j in grep("[$][$]", md.text)) md.text[j] <- gsub("[$][$]", "\\\\end{multline}", md.text[j])
+  tmp.latex.eqn <- list()
+  for(j in grep("[{]55pt[}]", md.text)) {
+  	if (grepl(" [\\][\\] ", md.text[j])) tmp.latex.eqn[[j]] <- "multline" else tmp.latex.eqn[[j]] <- "equation"
+  	md.text[j] <- gsub(".*[{]55pt[}]", paste("\\\\begin{", tmp.latex.eqn[[j]], "}", sep=""), md.text[j])
+  }
+  for(j in grep("[$][$]", md.text)) md.text[j] <- gsub("[$][$]", paste("\\\\end{", tmp.latex.eqn[[j]], "}", sep=""), md.text[j])
   
   for(j in grep("<sup>th</sup>", md.text)) md.text[j] <- gsub("<sup>th</sup>", "$^{th}$", md.text[j])
   for(j in grep("<sup>st</sup>", md.text)) md.text[j] <- gsub("<sup>st</sup>", "$^{st}$", md.text[j])
@@ -109,6 +113,7 @@ renderPDF <- function (
     md.text <- md.text[-(html.index:latex.index)]
   }
   
+  md.text <- gsub("<!-- LaTeX_Start", "", md.text)
   md.text <- gsub("LaTeX_End -->", "", md.text)
   
   ## Get rid of random latex(...) comments
