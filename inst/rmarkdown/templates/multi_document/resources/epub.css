@@ -230,7 +230,7 @@ h5 + p > img {
 }
 
 h6 + p > img {
-  max-width: 100px;
+  width: 50%;
   float: left;
   display: block;
   padding-left: 10px;

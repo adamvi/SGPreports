@@ -140,7 +140,7 @@ renderEPUB <- function(
       if(grepl("![[]", md.text[i+1])) { # insure next line is a markdown figure '![...'
         # Turn MD header into a HTML div
         md.text[i] <- paste("<div class='caption'>", gsub(header, "", md.text[i]), '</div>')
-      } 
+      }
       if(grepl("![[]", md.text[i+2])) { # insure next line is a markdown figure '![...'
         md.text[i] <- paste("<div class='caption' style='page-break-before:always;'>", gsub(header, "", md.text[i]), '</div>')
       }
@@ -149,7 +149,8 @@ renderEPUB <- function(
   
   md.text <- gsub("[(]img", file.path("(.","img"), md.text) #odd - need regexpr in find, but not replace...
   md.text <- gsub("style=''", "style=';'", md.text)
-  
+  md.text <- gsub("FALSE>", ">", md.text)
+
   input.epub <- file.path("markdown", gsub(".md", "-epub.md", input.md, ignore.case=TRUE))
   if ("abstract" %in% names(rmd.yaml)) {
     abstract <- paste("<div class='lead' id='document_lead'><p style='text-align:center;'>", rmd.yaml$abstract, "</p></div>")
