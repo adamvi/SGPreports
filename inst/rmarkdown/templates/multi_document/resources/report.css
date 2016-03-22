@@ -525,7 +525,6 @@ td > img {
 
 h5 + p > img {
   max-width: 650px;
-  float: left;
   display: block;
   padding-left: 10px;
   padding-bottom: 50px;
