@@ -1,0 +1,64 @@
+<div id="literasee-tech-report">
+
+$if(toc)$
+
+<div id="TOC", class="TOC">
+<p>Table of Contents:</p>
+$toc$
+<!--
+$if(bibliography)$
+<ul>
+<li></li>
+<li><a href="#references">References</a></li>
+<li></li>
+</ul>
+$endif$
+-->
+</div>
+$endif$
+
+<div id="document">
+
+$for(include-before)$
+$include-before$
+$endfor$
+
+<div class="content-node document selected">
+
+$if(title)$
+<div class="content">
+<div class="document-title">$title$</div>
+$if(subtitle)$
+<div class="document-subtitle" title="">$subtitle$</div>
+$endif$
+$for(author)$
+$if(author.name)$
+<div class="authors" id="authors">$author.name$</div>
+$if(author.affiliation)$
+<address class="author_afil">$author.affiliation$</address>
+$endif$
+$if(author.email)$
+<address class="author_email" href="mailto:#">$author.email$</address>
+$endif$
+$else$
+<div class="authors" id="authors">$author$</div>
+$endif$
+$endfor$
+$if(date)$
+<p class="published" style='text-indent: 0px;'>$date$</p>
+$endif$
+$if(abstract)$
+<div class="lead" id="document_lead"><p style='text-align:center;'>$abstract$</p></div>
+$endif$
+</div>
+$endif$
+
+<div class="content-node section">$body$</div>
+
+</div>
+
+$for(include-after)$
+$include-after$
+$endfor$
+
+</div>

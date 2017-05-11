@@ -168,9 +168,8 @@ renderPDF <- function (
                 
   message(paste("\n\t Rendering PDF with system call to pandoc:\n\n", 
           my.pandoc,pdf_md_path, "--to latex --from markdown+autolink_bare_uris+ascii_identifiers --output ", file.path("PDF", gsub(".md", ".pdf", input.md, ignore.case=TRUE)), biblio, " ", csl, "--template ", pdf_template,  pdf_number_sections, highlight, latex_engine, pandoc_args, "\n"))
-  if(keep_tex) {
-  system(paste(my.pandoc, pdf_md_path, "--to latex --from markdown+autolink_bare_uris+ascii_identifiers --output ", file.path("PDF", gsub(".md", ".tex", input.md, ignore.case=TRUE)), biblio, " ", csl, "--template ", pdf_template,  pdf_number_sections, highlight, latex_engine, pandoc_args))
-  }
-  system(paste(my.pandoc, pdf_md_path, "--to latex --from markdown+autolink_bare_uris+ascii_identifiers --output ", file.path("PDF", gsub(".md", ".pdf", input.md, ignore.case=TRUE)), biblio, " ", csl, "--template ", pdf_template,  pdf_number_sections, highlight, latex_engine, pandoc_args))
+
+    system(paste(my.pandoc, pdf_md_path, "--to latex --from markdown+autolink_bare_uris+ascii_identifiers --output ", file.path("PDF", gsub(".md", ".pdf", input.md, ignore.case=TRUE)), biblio, " ", csl, "--template ", pdf_template,  pdf_number_sections, highlight, latex_engine, pandoc_args))
+    if(!keep_tex)	file.remove(file.path("PDF", gsub(".Rmd", ".tex", input, ignore.case=TRUE)))
 }### End renderPDF
 

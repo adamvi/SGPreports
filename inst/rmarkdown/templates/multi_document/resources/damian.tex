@@ -165,6 +165,9 @@ $endif$
 \SetMathAlphabet\mathbbmss{bold}{U}{bbmss}{bx}{n}
 \DeclareMathAlphabet{\mathbbmtt}{U}{bbmtt}{m}{n}
 
+\providecommand{\tightlist}{% Error in pandoc - http://tex.stackexchange.com/questions/257418/error-tightlist-converting-md-file-into-pdf-using-pandoc
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+  
 $if(macros)$
 \input $macros$
 $endif$

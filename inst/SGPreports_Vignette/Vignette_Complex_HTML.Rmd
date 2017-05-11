@@ -295,7 +295,7 @@ for (nr in 1:nrow(output)){
   }
 }
 
-cat(dualTable(output, align="r",
+cat(dualTable(output, align=rep("r", ncol(output)),
           header =  paste(c("1st", "2nd",
                             "3rd", "4th",
                             "5th", "6th"),

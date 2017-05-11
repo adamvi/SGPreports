@@ -44,6 +44,7 @@ multi_document <- function (
 	if (any(css != "-default")) {
 		css <- c(css, system.file("rmarkdown", "templates", "multi_document", "resources", "report.css" , package = "SGPreports"))
 	}
+  css <- unique(css)
 	
   ##  Check csl file  
   if (!is.null(csl)) {
@@ -82,10 +83,10 @@ multi_document <- function (
       } else stop("'bibliography' file not found.")
     }
   }
-  
   output_ret_val <- html_document(toc=toc, toc_depth=toc_depth, number_sections=number_sections, 
   											dev=dev, self_contained=self_contained, theme=NULL, mathjax=NULL, 
-  											template=template, css=css, keep_md=TRUE, pandoc_args=pandoc_args, ...)
+  											template=template, css=css, keep_md=TRUE, copy_resources=!self_contained, pandoc_args=pandoc_args, ...)
+  # if (!self_contained) output_ret_val$pandoc$args <- grep("--standalone", output_ret_val$pandoc$args, invert=TRUE, value=TRUE)
   output_ret_val$post_processor_old <- output_ret_val$post_processor
   output_ret_val$post_processor <- post_processor <- function(
       metadata, input_file, output_file, clean, verbose, old_post_processor = output_ret_val$post_processor_old) {

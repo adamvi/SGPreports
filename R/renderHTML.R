@@ -10,7 +10,9 @@ renderHTML <- function (
   html_css = "default",
   bibliography = "default",
   csl = "default",
-  pandoc_args = NULL, ...) {
+  pandoc_args = NULL, 
+  output_dir=file.path(".", "HTML"),
+  ...) {
   
   ### Initial checks of alternative css and/or pandoc template
   
@@ -35,7 +37,9 @@ renderHTML <- function (
 	if (any(html_css != "-default")) {
 		html_css <- c(html_css, system.file("rmarkdown", "templates", "multi_document", "resources", "report.css" , package = "SGPreports"))
 	}
-		
+	
+	html_css <- unique(html_css)
+
   ### Check pandoc template
   
 	if (html_template != "default") {
@@ -77,8 +81,8 @@ renderHTML <- function (
 	}
 
 	###
-  ###  Render HTML (and master .md file)
-  ###
+ 	###  Render HTML (and master .md file)
+	###
   
 	message("\n\t Rendering HTML with call to render(... multi_document):\n")
 	
@@ -86,13 +90,14 @@ renderHTML <- function (
   			 multi_document(..., # passed args to rmarkdown::html_document
   			 				number_sections=number_sections, number_section_depth=number_section_depth, toc=toc, toc_depth=toc_depth,
   			 				self_contained=self_contained, dev=dev, template=html_template, css=html_css, 
-  			 				bibliography=bibliography, csl=csl, pandoc_args=pandoc_args),
-  			     output_dir=file.path(".", "HTML"))
+  			 				bibliography=bibliography, csl=csl, pandoc_args=pandoc_args), output_dir=output_dir)
 	
 	### Move "master" .md file to HTML/markdown directory
-	dir.create(file.path("HTML", "markdown"), showWarnings=FALSE)
-	file.copy(file.path("HTML", gsub(".Rmd", ".md", input, ignore.case=TRUE)), file.path("HTML", "markdown"), overwrite=TRUE)
-	file.remove(file.path("HTML", gsub(".Rmd", ".md", input, ignore.case=TRUE)))
+	if (grepl("HTML", output_dir)) {
+		dir.create(file.path(output_dir, "markdown"), showWarnings=FALSE)
+		file.copy(file.path(output_dir, gsub(".Rmd", ".md", input, ignore.case=TRUE)), file.path(output_dir, "markdown"), overwrite=TRUE)
+		file.remove(file.path(output_dir, gsub(".Rmd", ".md", input, ignore.case=TRUE)))
+	}
 	
   return(NULL)
 }### End renderMultiDocument
