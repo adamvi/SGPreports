@@ -1,6 +1,6 @@
 ##  dualTable function for HTML and LaTeX output
 
-dualTable <- function(my_tbl, where="H", align=rep('c',ncol(x)), caption="", css.class = "gmisc_table breakboth", ...) { # , where="!htbp"
+dualTable <- function(my_tbl, where="H", align=paste(rep('c', ncol(my_tbl)), collapse=''), caption="", css.class = "gmisc_table breakboth", ...) { # , where="!htbp"
   tmp_caption <- tblCap(caption)
   if (all(nchar(align) > 1) & length(align)==1){
   	tex.align <- strsplit(align, "")[[1]]

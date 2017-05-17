@@ -2,7 +2,7 @@
 \alias{tblNumNext}
 \title{Gets the next table number}
 \usage{
-tblNumNext())
+tblNumNext()
 }
 \arguments{
 }

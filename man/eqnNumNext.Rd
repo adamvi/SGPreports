@@ -2,7 +2,7 @@
 \alias{eqnNumNext}
 \title{Gets the next equation number}
 \usage{
-eqnNumNext())
+eqnNumNext()
 }
 \arguments{
 }

@@ -1,0 +1,42 @@
+name: "SGPreports"
+
+template:
+  package: SGPreports
+  params:
+    bootswatch: paper
+
+home:
+  links:
+    - text: Learn more
+      href: literasee.io
+
+navbar:
+  title: "The SGPreports Package"
+  right:
+      - text: Intro
+        href: index.html
+      - text: Reference
+        href: reference/index.html
+      - title: Higher level functions
+        desc:  Wrapper functions controlling lower level functions.
+        contents:
+            - getVignette
+            - renderMultiDocument
+            - multi_document
+      - title: Lower level functions
+        desc: Lower level functions controlling most output.
+        contents:
+            - dualTable
+            - eqnNum
+            - eqnNumNext
+            - tblCap_NO_Increment
+            - tblCap
+            - tblNum
+            - tblNumIncrement
+            - tblNumNext
+      - title: Miscellaneous functions
+        desc: Functions used by both higher and lower level functions
+        contents:
+            - use.data.table
+      - icon: fa-github fa-2x
+        href: https://github.com/adamvi/SGPreports

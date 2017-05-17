@@ -2,7 +2,7 @@
 \alias{tblCap_NO_Increment}
 \title{Returns formated caption with table number}
 \usage{
-tblCap_NO_Increment(caption.text="My table caption is great."))
+tblCap_NO_Increment(caption.text=NULL)
 }
 \arguments{
   \item{caption.text}{Text string to be used for caption.}
@@ -10,7 +10,7 @@ tblCap_NO_Increment(caption.text="My table caption is great."))
 \description{
 Returns a formatted markdown text string for the caption, which includes
 the table number.  The function relies on \code{options("table_number")} in
-order to keep track of the current number.  Does not increase the 
+order to keep track of the current number.  Does not increase the
 current table number, making it different than \link{tblCap}.
 }
 \examples{

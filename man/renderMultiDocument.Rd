@@ -2,8 +2,8 @@
 \alias{renderMultiDocument}
 \title{Render R Markdown in Multiple Output Formats}
 \usage{
-renderMultiDocument(rmd_input, 
-  output_format = c("HTML", "EPUB", "PDF"), 
+renderMultiDocument(rmd_input,
+  output_format = c("HTML", "EPUB", "PDF"),
   cleanup_aux_files = TRUE,
   number_sections = TRUE,
   number_section_depth=3,
@@ -19,7 +19,7 @@ renderMultiDocument(rmd_input,
   html_css = "default",
   epub_css = "default",
   docx_css = "default",
-  cover_img = NULL, 
+  cover_img = NULL,
   add_cover_title = FALSE,
   bibliography = "default",
   csl = "default",
@@ -27,7 +27,7 @@ renderMultiDocument(rmd_input,
   ...)
 }
 \arguments{
-  \item{input}{Input file. Must be an R Markdown (.Rmd) file located in the working directory).}
+  \item{rmd_input}{Input file. Must be an R Markdown (.Rmd) file located in the working directory).}
 
   \item{output_format}{Output format(s) to convert Rmd file to. Pass
   a vector of format names to render multiple formats.  Defaults to the three
@@ -35,17 +35,17 @@ renderMultiDocument(rmd_input,
   but is intended to be a draft-version document as it does not support many
   of the stylization features included in the other formats.}
 
-  \item{cleanup_aux_files}{Boolean.  Defaults to TRUE to delete the 
+  \item{cleanup_aux_files}{Boolean.  Defaults to TRUE to delete the
   intermediate markdown files and directories be upon successful completion.}
-  \item{number_sections}{Boolean. Should sections, subsections, and 
+  \item{number_sections}{Boolean. Should sections, subsections, and
   subsubsections be numbered.  Default \code{TRUE}}
-  \item{number_section_depth}{Numeric. Depth of headers to include in 
+  \item{number_section_depth}{Numeric. Depth of headers to include in
   section numbering. Default is 3 (subsubsections).}
-  \item{convert_header_levels}{Numeric. Markdown header levels 5 and 6 can 
-  be used as figure captions in HTML document. These headers are converted 
+  \item{convert_header_levels}{Numeric. Markdown header levels 5 and 6 can
+  be used as figure captions in HTML document. These headers are converted
   back to in image captions for PDF format.}
   \item{toc}{Boolean. \code{TRUE} to include a table of contents in the output}
-  \item{toc_depth}{Numeric. Depth of headers to include in table of 
+  \item{toc_depth}{Numeric. Depth of headers to include in table of
   contents. Default is 2 (subsections).}
  \item{self_contained}{Produce a standalone HTML file with no external
   dependencies, using data: URIs to incorporate the contents of linked
@@ -56,8 +56,8 @@ renderMultiDocument(rmd_input,
   \item{dev}{Graphics device to use for figure output (defaults to png).}
   \item{html_template}{Pandoc template to use for HTML rendering. Pass "default"
   to use the SGPreports package default template.  Note that if you don't
-  use the "default" template then the features of \code{multi_document} 
-  won't be available.  Additionally, there is a 'simple' version that does not include the 
+  use the "default" template then the features of \code{multi_document}
+  won't be available.  Additionally, there is a 'simple' version that does not include the
   table of contents or the two-toned background (useful for printing/PDF via browser).}
   \item{epub_template}{Pandoc template to use for EPUB rendering. Default is NULL,
   which uses Pandoc's base template.}
@@ -73,12 +73,12 @@ renderMultiDocument(rmd_input,
   \item{bibliography}{The LaTeX style bibliography file (.bib, .bibtex, etc.) to include.
   The default file included in the package includes references often used by the author
   and will likely be insufficient for most users.}
-  \item{csl}{The CSL (citation style language) to use to format bibliography 
-  (if included).  Defaults to APA 5th edition.  See 
-  \href{https://github.com/citation-style-language/styles}{this Github repository} 
+  \item{csl}{The CSL (citation style language) to use to format bibliography
+  (if included).  Defaults to APA 5th edition.  See
+  \href{https://github.com/citation-style-language/styles}{this Github repository}
   for alternatives.  If NULL pandoc's defaults will be used.}
   \item{pandoc_args}{Additional command line options to pass to pandoc}
-  \item{...}{Passed onto\code{\link{multi_document}} and/or 
+  \item{...}{Passed onto\code{\link{multi_document}} and/or
   \code{\link[rmarkdown]{html_document}}.}
 }
 \value{
@@ -86,14 +86,14 @@ renderMultiDocument(rmd_input,
   are created for each of the output formats.
 }
 \description{
-Render the input file to the specified output formats using 
+Render the input file to the specified output formats using
 pandoc. If the input requires knitting then
 \code{\link[knitr:knit]{knit}} is called prior to pandoc.
 }
 \details{
 This function is a wrapper function that combines calls to \code{\link[rmarkdown]{render}}
-and direct \code{system} calls to Pandoc.  The function begins with a rendering of the 
-HTML version of the document and saves the markdown file from this rendering and 
+and direct \code{system} calls to Pandoc.  The function begins with a rendering of the
+HTML version of the document and saves the markdown file from this rendering and
 uses that as a base from which other formats can be rendered.  Other formats require
 specific post-processing, which is also accomplished in the function.
 }
